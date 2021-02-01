@@ -1,11 +1,12 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using CV19.Annotations;
 
 namespace CV19.ViewModel.Base
 {
-    internal abstract class ViewModel : INotifyPropertyChanged 
+    internal abstract class ViewModel : INotifyPropertyChanged, IDisposable 
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -22,7 +23,20 @@ namespace CV19.ViewModel.Base
             field = value;
             OnPropertyChanged(propertyName);
             return true;
+        }
 
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        private bool _Dispodse;
+
+        protected  virtual void Dispose(bool disposing)
+        {
+            if (!disposing || _Dispodse) return;
+            _Dispodse = true;
+            // Освобождение управляемых ресурсов 
         }
     }
 }
