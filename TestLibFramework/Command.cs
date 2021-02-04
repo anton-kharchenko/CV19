@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Windows.Input;
 
-namespace TestLib
+namespace TestLibFramework
 {
     public abstract class Command : ICommand
     {
