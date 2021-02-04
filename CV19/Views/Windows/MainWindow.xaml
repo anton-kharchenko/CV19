@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CV19"
         xmlns:vm="clr-namespace:CV19.ViewModel"
         mc:Ignorable="d"
-        Title="{Binding Title}" 
+        Title="{Binding Title}"
         Height="450" Width="800">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -14,7 +14,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Выход"/>
+                <MenuItem Header="Выход" Command="{Binding CloseAppApplicationCommand}" />
             </MenuItem>
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе"/>
@@ -41,9 +41,9 @@
                     </Grid.ColumnDefinitions>
                     <Rectangle Grid.Column="0" Grid.Row="0"
                                Margin="5,7"
-                               Fill="Aqua" 
-                               Stroke="Red" 
-                               StrokeThickness="3" 
+                               Fill="Aqua"
+                               Stroke="Red"
+                               StrokeThickness="3"
                                RadiusX="5"
                                RadiusY="7"/>
                     <Ellipse Grid.Column="1" Grid.Row="1"
