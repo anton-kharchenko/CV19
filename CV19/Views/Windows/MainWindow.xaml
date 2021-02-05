@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:vm="clr-namespace:CV19.ViewModel"
         xmlns:cmd="clr-namespace:CV19.Infrastructure.Commands"
         mc:Ignorable="d"
@@ -39,7 +40,15 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl>
-            <TabItem Header="Вкладка 1">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <!--<Image Source="" />-->
+                        <fa:ImageAwesome Icon="Regular_File" Foreground="Tomato"
+                                         Height="12" Margin="0 0 5px 0" />
+                        <TextBlock Text="Вкладка" />
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="29*" />
