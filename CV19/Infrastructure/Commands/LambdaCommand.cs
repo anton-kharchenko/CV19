@@ -1,5 +1,5 @@
-﻿using System;
-using CV19.Infrastructure.Commands.Base;
+﻿using CV19.Infrastructure.Commands.Base;
+using System;
 
 namespace CV19.Infrastructure.Commands
 {
@@ -8,7 +8,7 @@ namespace CV19.Infrastructure.Commands
         private readonly Action<object> _Execute;
         private readonly Func<object, bool> _CanExecute;
 
-        public LambdaCommand(Action<object> Execute,  Func<object, bool> CanExecute =  null)
+        public LambdaCommand(Action<object> Execute, Func<object, bool> CanExecute = null)
         {
             _Execute = Execute ?? throw new ArgumentNullException(nameof(Execute));
             _CanExecute = CanExecute;
@@ -17,6 +17,5 @@ namespace CV19.Infrastructure.Commands
         public override void Execute(object parameter) => _Execute(parameter);
 
         public override bool CanExecute(object parameter) => _CanExecute?.Invoke(parameter) ?? true;
-
     }
 }

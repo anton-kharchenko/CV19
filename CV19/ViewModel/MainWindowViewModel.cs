@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CV19.Infrastructure.Commands;
 using System.Windows;
 using System.Windows.Input;
-using CV19.Infrastructure.Commands;
 
 namespace CV19.ViewModel
 {
@@ -17,25 +12,25 @@ namespace CV19.ViewModel
 
             CloseAppApplicationCommand = new LambdaCommand(OnCloseAppApplicationCommandExecuted, CanCloseAppApplicationCommandExecute);
 
-            #endregion
+            #endregion Команды
         }
 
         #region Команды
 
         #region Команда закрытия преложения
 
-        public ICommand CloseAppApplicationCommand { get;  }
+        public ICommand CloseAppApplicationCommand { get; }
 
-        void OnCloseAppApplicationCommandExecuted(object p)
+        private void OnCloseAppApplicationCommandExecuted(object p)
         {
             Application.Current.Shutdown();
         }
 
-        bool CanCloseAppApplicationCommandExecute(object p) => true;
+        private bool CanCloseAppApplicationCommandExecute(object p) => true;
 
-        #endregion
+        #endregion Команда закрытия преложения
 
-        #endregion
+        #endregion Команды
 
         #region Заголовок окна
 
@@ -48,15 +43,15 @@ namespace CV19.ViewModel
             set => Set(ref _title, value);
         }
 
-        #endregion
+        #endregion Заголовок окна
 
         #region Status: string - Статус программы
 
         private string _status = "Готов!";
 
         /// <summary>Статус программы </summary>
-        public string Status { get=> _status; set => Set(ref _status, value); }
+        public string Status { get => _status; set => Set(ref _status, value); }
 
-        #endregion
+        #endregion Status: string - Статус программы
     }
 }
