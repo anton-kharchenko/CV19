@@ -6,7 +6,7 @@ using CV19.Annotations;
 
 namespace CV19.ViewModel.Base
 {
-    internal abstract class ViewModel : INotifyPropertyChanged, IDisposable 
+    internal abstract class ViewModel : INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -19,7 +19,7 @@ namespace CV19.ViewModel.Base
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             if (field.Equals(value)) return false;
-            
+
             field = value;
             OnPropertyChanged(propertyName);
             return true;
@@ -32,11 +32,11 @@ namespace CV19.ViewModel.Base
 
         private bool _Dispodse;
 
-        protected  virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!disposing || _Dispodse) return;
             _Dispodse = true;
-            // Освобождение управляемых ресурсов 
+            // Освобождение управляемых ресурсов
         }
     }
 }
