@@ -1,11 +1,26 @@
-﻿using CV19.Infrastructure.Commands;
+﻿using System;
+using System.Collections.Generic;
+using CV19.Infrastructure.Commands;
 using System.Windows;
 using System.Windows.Input;
+using CV19.Models;
 
 namespace CV19.ViewModel
 {
     internal class MainWindowViewModel : Base.ViewModel
     {
+        #region IEnumerable<DataPoint> - Тестовый набор данных для визуализации интерфейса
+
+        private IEnumerable<DataPoint> _TestPoints;
+
+        public IEnumerable<DataPoint> TestPoints
+        {
+            get => _TestPoints;
+            set => Set(ref _TestPoints, value);
+        }
+
+        #endregion IEnumerable<DataPoint> - Тестовый набор данных для визуализации интерфейса
+
         public MainWindowViewModel()
         {
             #region Команды
@@ -13,6 +28,17 @@ namespace CV19.ViewModel
             CloseAppApplicationCommand = new LambdaCommand(OnCloseAppApplicationCommandExecuted, CanCloseAppApplicationCommandExecute);
 
             #endregion Команды
+
+            var data_points = new List<DataPoint>((int)(360 / 0.1));
+            for (double x = 0d; x <= 360; x += 0.1)
+            {
+                const double radius = Math.PI / 180;
+                var y = Math.Sin(radius * x);
+
+                data_points.Add(new DataPoint { XValue = x, YValue = y });
+            }
+
+            _TestPoints = data_points;
         }
 
         #region Команды
