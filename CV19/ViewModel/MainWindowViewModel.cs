@@ -2,13 +2,18 @@
 using CV19.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using CV19.Models.Decanat;
 
 namespace CV19.ViewModel
 {
     internal class MainWindowViewModel : Base.ViewModel
     {
+        public ObservableCollection<Group> Groups { get; }
+
         public MainWindowViewModel()
         {
             #region Команды
@@ -30,6 +35,26 @@ namespace CV19.ViewModel
             }
 
             _TestPoints = data_points;
+
+            var student_index = 1;
+            var rating = 1;
+
+            var students = Enumerable.Range(1, 10).Select(i => new Student
+            {
+                Name = $"Имя {student_index}",
+                Surname = $"Фамилия {student_index}",
+                Patronymic = $"Отчество {student_index}",
+                Birthday = DateTime.Now,
+                Rating = rating++
+            });
+
+            var groups = Enumerable.Range(1, 20).Select(i => new Group
+            {
+                Name = $"Группа {i}",
+                Students = new ObservableCollection<Student>(students)
+            });
+
+            Groups = new ObservableCollection<Group>(groups);
         }
 
         #region IEnumerable<DataPoint> - Тестовый набор данных для визуализации интерфейса
