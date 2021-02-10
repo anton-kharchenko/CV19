@@ -103,7 +103,7 @@ namespace CV19.ViewModel
 
         #endregion Команды
 
-        #region Заголовок окна
+        #region Title : string - Заголовок окна
 
         private string _title = "Анализ статистики CV19";
 
@@ -114,7 +114,7 @@ namespace CV19.ViewModel
             set => Set(ref _title, value);
         }
 
-        #endregion Заголовок окна
+        #endregion Title : string - Заголовок окна
 
         #region Status: string - Статус программы
 
@@ -129,7 +129,7 @@ namespace CV19.ViewModel
 
         #endregion Status: string - Статус программы
 
-        #region SelectedTabPage
+        #region SelectedTabPage: int - Выбраная Вкладка
 
         /// <summary>Номер выбраной вкладки</summary>
         private int _selectedTabPage;
@@ -141,6 +141,19 @@ namespace CV19.ViewModel
             set => Set(ref _selectedTabPage, value);
         }
 
-        #endregion SelectedTabPage
+        #endregion SelectedTabPage: int - Выбраная Вкладка
+
+        #region Selected Group: string -Выбраная группа
+
+        private Group _selectedGroup;
+
+        /// <summary>Заголовок окна</summary>
+        public Group SelectedGroup
+        {
+            get => _selectedGroup;
+            set => Set(ref _selectedGroup, value);
+        }
+
+        #endregion Selected Group: string -Выбраная группа
     }
 }

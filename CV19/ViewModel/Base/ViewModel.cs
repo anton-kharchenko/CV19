@@ -17,7 +17,7 @@ namespace CV19.ViewModel.Base
 
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
-            if (field.Equals(value)) return false;
+            if (Equals(field, value)) return false;
 
             field = value;
             OnPropertyChanged(propertyName);
