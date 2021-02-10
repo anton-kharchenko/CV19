@@ -1,12 +1,12 @@
 ﻿<Window x:Class="CV19.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:fa="http://schemas.fontawesome.com/icons/"
-        xmlns:vm="clr-namespace:CV19.ViewModel"
         xmlns:cmd="clr-namespace:CV19.Infrastructure.Commands"
-        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:vm="clr-namespace:CV19.ViewModel"
         mc:Ignorable="d"
         Title="{Binding Title}"
         Height="697.169" Width="978.302">
@@ -33,7 +33,7 @@
             </MenuItem>
             <MenuItem Command="{Binding ChangeTabItem}" CommandParameter="-1">
                 <MenuItem.Header>
-                    <fa:ImageAwesome Icon="Regular_ArrowAltCircleLeft" Height="12" />
+                    <fa:ImageAwesome Icon="Regular_ArrowAltCircleRight" Height="12" />
                 </MenuItem.Header>
             </MenuItem>
             <MenuItem Command="{Binding ChangeTabItem}" CommandParameter="1">

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using CV19.Annotations;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using CV19.Annotations;
 
 namespace CV19.ViewModel.Base
 {
