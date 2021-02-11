@@ -38,7 +38,7 @@
             </MenuItem>
             <MenuItem Command="{Binding ChangeTabItem}" CommandParameter="1">
                 <MenuItem.Header>
-                    <fa:ImageAwesome Icon="Regular_ArrowAltCircleRight" Height="12" />
+                    <fa:ImageAwesome Icon="Regular_ArrowAltCircleLeft" Height="12" />
                 </MenuItem.Header>
             </MenuItem>
         </Menu>
@@ -67,7 +67,18 @@
                                 StringFormat='Студенты группы {0}',
                                 FallbackValue='Студенты',
                                 TargetNullValue='Група не выбрана'}">
-                        <DataGrid></DataGrid>
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True"
+                            ItemsSource="{Binding SelectedGroup.Students}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" />
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Name}" />
+                                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" />
+                                <DataGridTextColumn Header="Рейтинг" Binding="{Binding Rating}" />
+                                <DataGridTextColumn Header="Дата рождения" Binding="{Binding Birthday, StringFormat=dd.MM.yyyy}" />
+                                <DataGridTextColumn Header="Группа"
+                                                    Binding="{Binding DataContext.SelectedGroup.Name, RelativeSource={RelativeSource AncestorType=DataGrid} }" />
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </GroupBox>
                 </Grid>
             </TabItem>
