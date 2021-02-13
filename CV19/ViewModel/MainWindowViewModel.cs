@@ -1,11 +1,11 @@
-﻿using CV19.Infrastructure.Commands;
-using CV19.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using CV19.Infrastructure.Commands;
+using CV19.Models;
 using CV19.Models.Decanat;
 
 namespace CV19.ViewModel
@@ -13,6 +13,8 @@ namespace CV19.ViewModel
     internal class MainWindowViewModel : Base.ViewModel
     {
         public ObservableCollection<Group> Groups { get; }
+
+        public object[] CompositeCollection { get; }
 
         public MainWindowViewModel()
         {
@@ -55,6 +57,16 @@ namespace CV19.ViewModel
             });
 
             Groups = new ObservableCollection<Group>(groups);
+
+            var data_list = new List<object>();
+
+            data_list.Add("Hello");
+            data_list.Add(42);
+            var firstGroup = Groups[1];
+            data_list.Add(firstGroup);
+            data_list.Add(firstGroup.Students[0]);
+
+            CompositeCollection = data_list.ToArray();
         }
 
         #region IEnumerable<DataPoint> - Тестовый набор данных для визуализации интерфейса
@@ -97,7 +109,10 @@ namespace CV19.ViewModel
             SelectedTabPage += Convert.ToInt32(p);
         }
 
-        private bool CanChangeTabItemExecuted(object p) => SelectedTabPage >= 0;
+        private bool CanChangeTabItemExecuted(object p)
+        {
+            return SelectedTabPage >= 0;
+        }
 
         #endregion Переключатель вкладок
 
@@ -115,6 +130,19 @@ namespace CV19.ViewModel
         }
 
         #endregion Title : string - Заголовок окна
+
+        #region SelectedCompositeValue : object - Выбраный непонятный элемент
+
+        private object _selectedCompositeValue;
+
+        /// <summary>Выбраный непонятный элемент</summary>
+        public object SelectedCompositeValue
+        {
+            get => _selectedCompositeValue;
+            set => Set(ref _selectedCompositeValue, value);
+        }
+
+        #endregion SelectedCompositeValue : object - Выбраный непонятный элемент
 
         #region Status: string - Статус программы
 
