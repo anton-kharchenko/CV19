@@ -123,15 +123,8 @@
                     <GroupBox Grid.Column="0" Header="Группы" Grid.ColumnSpan="2">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0, 3">
-                                <UniformGrid.Resources>
-                                    <Style x:Key="ButtonStyle" TargetType="Button">
-                                        <Setter Property="Margin" Value="3,0" />
-                                        <Setter Property="Padding" Value="3,0" />
-                                        <Setter Property="Background" Value="Aqua" />
-                                    </Style>
-                                </UniformGrid.Resources>
-                                <Button Content="Добавить" Style="{StaticResource ButtonStyle}" Command="{Binding CreateGroupCommand}" />
-                                <Button Content="Удалить" Style="{StaticResource ButtonStyle}" Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}" />
+                                <Button Content="Добавить" Style="{StaticResource PrimaryButton}" Command="{Binding CreateGroupCommand}" />
+                                <Button Content="Удалить"  Style="{StaticResource DangerButton}" Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}" />
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" SelectedIndex="0"
                                      SelectedItem="{Binding SelectedGroup}">
@@ -195,7 +188,9 @@
                                     DataFieldY="YValue" />
                 </oxy:Plot>
             </TabItem>
-            <TabItem Header="Вкладка 2" />
+            <TabItem Header="Вкладка 2">
+                <Button Width="200" Height="50" Content="ewqeqw" VerticalAlignment="Top" />
+            </TabItem>
             <TabItem Header="Вкладка 3" />
             <TabItem Header="Вкладка 4" />
         </TabControl>
