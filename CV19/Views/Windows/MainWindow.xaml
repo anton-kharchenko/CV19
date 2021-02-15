@@ -123,9 +123,15 @@
                     <GroupBox Grid.Column="0" Header="Группы" Grid.ColumnSpan="2">
                         <DockPanel>
                             <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0, 3">
-                                <Button Content="Добавить" Margin="4,0" Command="{Binding CreateGroupCommand}" />
-                                <Button Content="Удалить" Margin="4,0"
-                                        Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}" />
+                                <UniformGrid.Resources>
+                                    <Style x:Key="ButtonStyle" TargetType="Button">
+                                        <Setter Property="Margin" Value="3,0" />
+                                        <Setter Property="Padding" Value="3,0" />
+                                        <Setter Property="Background" Value="Aqua" />
+                                    </Style>
+                                </UniformGrid.Resources>
+                                <Button Content="Добавить" Style="{StaticResource ButtonStyle}" Command="{Binding CreateGroupCommand}" />
+                                <Button Content="Удалить" Style="{StaticResource ButtonStyle}" Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}" />
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" SelectedIndex="0"
                                      SelectedItem="{Binding SelectedGroup}">
