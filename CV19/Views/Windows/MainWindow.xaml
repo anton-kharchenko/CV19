@@ -57,7 +57,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="171" />
-                        <ColumnDefinition Width="79"/>
+                        <ColumnDefinition Width="79" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.ColumnSpan="2">
@@ -82,7 +82,7 @@
                         <GroupBox.Resources>
                             <ResourceDictionary>
                                 <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="../../Resources/DataTemplates/CompositeItemsContolDataTemplate.xaml"/>
+                                    <ResourceDictionary Source="../../Resources/DataTemplates/CompositeItemsContolDataTemplate.xaml" />
                                 </ResourceDictionary.MergedDictionaries>
                             </ResourceDictionary>
                         </GroupBox.Resources>
@@ -99,9 +99,13 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Группы" Grid.ColumnSpan="2">
                         <DockPanel>
-                            <UniformGrid DockPanel.Dock="Bottom" Rows="1" Margin="0, 3">
-                                <Button Content="Добавить" Style="{StaticResource PrimaryButton}" Command="{Binding CreateGroupCommand}" />
-                                <Button Content="Удалить"  Style="{StaticResource DangerButton}" Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}" />
+                            <UniformGrid  DockPanel.Dock="Bottom" Rows="1" Margin="0, 3">
+                                <Button   Content="Добавить"  Padding="0, 7"
+                                          Style="{StaticResource CheckButtonStyle}"
+                                          Command="{Binding CreateGroupCommand}" />
+                                <Button  Content="Удалить"
+                                         Style="{StaticResource RemoveButtonStyle}"
+                                         Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}" />
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Groups}" SelectedIndex="0"
                                      SelectedItem="{Binding SelectedGroup}">
@@ -166,7 +170,55 @@
                 </oxy:Plot>
             </TabItem>
             <TabItem Header="Вкладка 2">
-                <Button Width="200" Height="50" Content="ewqeqw" VerticalAlignment="Top" />
+                <Button Height="50"
+                        Opacity="1"
+                        Style="{StaticResource CustomButtonStyle}"
+                        Content="Кнопка с анимацией"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Width="200"
+                        Margin="50, 100"
+                        RenderTransformOrigin="0.5, 0.5">
+                    <Button.Background>
+                        <SolidColorBrush x:Name="ButtonBrash" Color="White" />
+                    </Button.Background>
+                    <Button.RenderTransform>
+                        <RotateTransform Angle="0" x:Name="ButtonRotate" />
+                    </Button.RenderTransform>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="ButtonRotate"
+                                                     Storyboard.TargetProperty="Angle"
+                                                     AutoReverse="True"
+                                                     From="0" To="360"
+                                                     Duration="0:0:1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="ButtonBrash"
+                                                    Storyboard.TargetProperty="Color"
+                                                    Duration="0:0:0.1"
+                                                    To="Red" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Button.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="ButtonBrash"
+                                                    Storyboard.TargetProperty="Color"
+                                                    Duration="0:0:3"
+                                                    To="White" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
             </TabItem>
             <TabItem Header="Вкладка 3" />
             <TabItem Header="Вкладка 4" />
