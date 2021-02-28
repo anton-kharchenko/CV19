@@ -53,43 +53,6 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl SelectedIndex="{Binding SelectedTabPage}">
-            <TabItem Header="Разнородные данные">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="171" />
-                        <ColumnDefinition Width="79" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <GroupBox Grid.ColumnSpan="2">
-                        <GroupBox.Header>
-                            <TextBlock Text="Элементы" />
-                        </GroupBox.Header>
-                        <GroupBox.Resources>
-                            <ResourceDictionary>
-                                <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="../../Resources/DataTemplates/CompositeListItemsDataTemplate.xaml" />
-                                </ResourceDictionary.MergedDictionaries>
-                            </ResourceDictionary>
-                        </GroupBox.Resources>
-                        <ListBox ItemsSource="{Binding CompositeCollection}"
-                                 SelectedItem="{Binding SelectedCompositeValue}">
-                        </ListBox>
-                    </GroupBox>
-                    <GroupBox Grid.Column="2">
-                        <GroupBox.Header>
-                            <TextBlock Text="Выбраный элемент" />
-                        </GroupBox.Header>
-                        <GroupBox.Resources>
-                            <ResourceDictionary>
-                                <ResourceDictionary.MergedDictionaries>
-                                    <ResourceDictionary Source="../../Resources/DataTemplates/CompositeItemsContolDataTemplate.xaml" />
-                                </ResourceDictionary.MergedDictionaries>
-                            </ResourceDictionary>
-                        </GroupBox.Resources>
-                        <ContentControl Content="{Binding SelectedCompositeValue}" />
-                    </GroupBox>
-                </Grid>
-            </TabItem>
             <TabItem Header="Студенты">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -175,59 +138,6 @@
                                     DataFieldY="YValue" />
                 </oxy:Plot>
             </TabItem>
-            <TabItem Header="Вкладка 2">
-                <Button Height="50"
-                        Opacity="1"
-                        Style="{StaticResource CustomButtonStyle}"
-                        Content="Кнопка с анимацией"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        Width="200"
-                        Margin="50, 100"
-                        RenderTransformOrigin="0.5, 0.5">
-                    <Button.Background>
-                        <SolidColorBrush x:Name="ButtonBrash" Color="White" />
-                    </Button.Background>
-                    <Button.RenderTransform>
-                        <RotateTransform Angle="0" x:Name="ButtonRotate" />
-                    </Button.RenderTransform>
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="Button.Click">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="ButtonRotate"
-                                                     Storyboard.TargetProperty="Angle"
-                                                     AutoReverse="True"
-                                                     From="0" To="360"
-                                                     Duration="0:0:1" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="Button.MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="ButtonBrash"
-                                                    Storyboard.TargetProperty="Color"
-                                                    Duration="0:0:0.1"
-                                                    To="Red" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="Button.MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="ButtonBrash"
-                                                    Storyboard.TargetProperty="Color"
-                                                    Duration="0:0:3"
-                                                    To="White" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Button.Triggers>
-                </Button>
-            </TabItem>
-            <TabItem Header="Вкладка 3" />
-            <TabItem Header="Вкладка 4" />
         </TabControl>
     </DockPanel>
 </Window>
