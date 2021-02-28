@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using CV19.Annotations;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using CV19.Annotations;
 
 namespace CV19.ViewModel.Base
 {
@@ -18,7 +17,7 @@ namespace CV19.ViewModel.Base
 
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
-            if (field.Equals(value)) return false;
+            if (Equals(field, value)) return false;
 
             field = value;
             OnPropertyChanged(propertyName);

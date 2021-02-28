@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using CV19.Infrastructure.Commands;
 using CV19.Models;
+using CV19.Models.Decanat;
 
 namespace CV19.ViewModel
 {
     internal class MainWindowViewModel : Base.ViewModel
     {
+        public ObservableCollection<Group> Groups { get; }
+
+        public object[] CompositeCollection { get; }
+
         public MainWindowViewModel()
         {
             #region Команды
@@ -17,6 +24,8 @@ namespace CV19.ViewModel
                 CanCloseAppApplicationCommandExecute);
 
             ChangeTabItem = new LambdaCommand(OnChangeTabItemExecuted, CanChangeTabItemExecuted);
+            CreateGroupCommand = new LambdaCommand(OnCreateGroupCommandExecuted, CanCreateGroupCommandExecute);
+            DeleteGroupCommand = new LambdaCommand(OnDeleteGroupCommandExecuted, CanDeleteGroupCommandExecuted);
 
             #endregion Команды
 
@@ -30,6 +39,36 @@ namespace CV19.ViewModel
             }
 
             _TestPoints = data_points;
+
+            var student_index = 1;
+            var rating = 1;
+
+            var students = Enumerable.Range(1, 10).Select(i => new Student
+            {
+                Name = $"Имя {student_index}",
+                Surname = $"Фамилия {student_index}",
+                Patronymic = $"Отчество {student_index}",
+                Birthday = DateTime.Now,
+                Rating = rating++
+            });
+
+            var groups = Enumerable.Range(1, 20).Select(i => new Group
+            {
+                Name = $"Группа {i}",
+                Students = new ObservableCollection<Student>(students)
+            });
+
+            Groups = new ObservableCollection<Group>(groups);
+
+            var data_list = new List<object>();
+
+            data_list.Add("Hello");
+            data_list.Add(42);
+            var firstGroup = Groups[1];
+            data_list.Add(firstGroup);
+            data_list.Add(firstGroup.Students[0]);
+
+            CompositeCollection = data_list.ToArray();
         }
 
         #region IEnumerable<DataPoint> - Тестовый набор данных для визуализации интерфейса
@@ -72,13 +111,48 @@ namespace CV19.ViewModel
             SelectedTabPage += Convert.ToInt32(p);
         }
 
-        private bool CanChangeTabItemExecuted(object p) => SelectedTabPage >= 0;
+        private bool CanChangeTabItemExecuted(object p)
+        {
+            return SelectedTabPage >= 0;
+        }
 
         #endregion Переключатель вкладок
 
+        public ICommand CreateGroupCommand { get; }
+
+        private bool CanCreateGroupCommandExecute(object p) => true;
+
+        private void OnCreateGroupCommandExecuted(object p)
+        {
+            var group_max_index = Groups.Count + 1;
+            var new_group = new Group()
+            {
+                Name = $"Группа :{group_max_index}",
+                Students = new ObservableCollection<Student>()
+            };
+            Groups.Add(new_group);
+        }
+
+        #region DeleteGroup
+
+        public ICommand DeleteGroupCommand { get; }
+
+        private bool CanDeleteGroupCommandExecuted(object p) => p is Group group && Groups.Contains(group);
+
+        private void OnDeleteGroupCommandExecuted(object p)
+        {
+            if (!(p is Group group)) return;
+            var group_index = Groups.IndexOf(group);
+            Groups.Remove(group);
+            if (group_index < Groups.Count)
+                SelectedGroup = Groups[group_index];
+        }
+
+        #endregion DeleteGroup
+
         #endregion Команды
 
-        #region Заголовок окна
+        #region Title : string - Заголовок окна
 
         private string _title = "Анализ статистики CV19";
 
@@ -89,7 +163,20 @@ namespace CV19.ViewModel
             set => Set(ref _title, value);
         }
 
-        #endregion Заголовок окна
+        #endregion Title : string - Заголовок окна
+
+        #region SelectedCompositeValue : object - Выбраный непонятный элемент
+
+        private object _selectedCompositeValue;
+
+        /// <summary>Выбраный непонятный элемент</summary>
+        public object SelectedCompositeValue
+        {
+            get => _selectedCompositeValue;
+            set => Set(ref _selectedCompositeValue, value);
+        }
+
+        #endregion SelectedCompositeValue : object - Выбраный непонятный элемент
 
         #region Status: string - Статус программы
 
@@ -104,7 +191,7 @@ namespace CV19.ViewModel
 
         #endregion Status: string - Статус программы
 
-        #region SelectedTabPage
+        #region SelectedTabPage: int - Выбраная Вкладка
 
         /// <summary>Номер выбраной вкладки</summary>
         private int _selectedTabPage;
@@ -116,6 +203,19 @@ namespace CV19.ViewModel
             set => Set(ref _selectedTabPage, value);
         }
 
-        #endregion SelectedTabPage
+        #endregion SelectedTabPage: int - Выбраная Вкладка
+
+        #region Selected Group: string -Выбраная группа
+
+        private Group _selectedGroup;
+
+        /// <summary>Заголовок окна</summary>
+        public Group SelectedGroup
+        {
+            get => _selectedGroup;
+            set => Set(ref _selectedGroup, value);
+        }
+
+        #endregion Selected Group: string -Выбраная группа
     }
 }
