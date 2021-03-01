@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Data;
 using CV19.Models.Decanat;
 
@@ -21,9 +22,16 @@ namespace CV19
             if (filter_text.Length == 0) return;
 
             if (group.Name.Contains(filter_text)) return;
-            if (group.Description.Contains(filter_text)) return;
+            if (group.Description != null && group.Description.Contains(filter_text)) return;
 
             e.Accepted = false;
+        }
+
+        private void OnGroupFilterTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text_box = (TextBox)sender;
+            var collection = (CollectionViewSource)text_box.FindResource("GroupsCollection");
+            collection.View.Refresh();
         }
     }
 }
