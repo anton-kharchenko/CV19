@@ -81,8 +81,17 @@
                                          Style="{StaticResource RemoveButtonStyle}"
                                          Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}" />
                             </UniformGrid>
-                            <ListBox ItemsSource="{Binding Source={StaticResource GroupsCollection}}" SelectedIndex="0"
-                                     SelectedItem="{Binding SelectedGroup}">
+                            <ListBox ItemsSource="{Binding Source={StaticResource GroupsCollection}}"
+                                     SelectedIndex="0"
+                                     SelectedItem="{Binding SelectedGroup}"
+                                     VirtualizingPanel.IsVirtualizing="True"
+                                     VirtualizingPanel.VirtualizationMode="Recycling"
+                                     VirtualizingPanel.IsContainerVirtualizable="true">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="decanat:Group">
                                         <StackPanel Orientation="Horizontal">
