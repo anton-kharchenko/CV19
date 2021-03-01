@@ -217,5 +217,13 @@ namespace CV19.ViewModel
         }
 
         #endregion Selected Group: string -Выбраная группа
+
+        public IEnumerable<Student> TestStudents =>
+            Enumerable.Range(1, App.IsDesignMode ? 10 : 100000)
+            .Select(i => new Student()
+            {
+                Name = $"Имя {i}",
+                Surname = $"Фамилия {i}"
+            });
     }
 }

@@ -9,6 +9,7 @@
         xmlns:vm="clr-namespace:CV19.ViewModel"
         xmlns:decanat="clr-namespace:CV19.Models.Decanat"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:l="clr-namespace:CV19"
         mc:Ignorable="d"
         Title="{Binding Title}"
         Height="697.169" Width="978.302">
@@ -53,6 +54,39 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl SelectedIndex="{Binding SelectedTabPage}">
+            <TabItem Header="Тестирование виртуализации">
+                <Grid>
+                    <TextBlock Text="{Binding Source={x:Static l:App.IsDesignMode}}" />
+                    <ListBox Margin="30"
+                             ItemsSource="{Binding TestStudents}"
+                            HorizontalAlignment="Left"
+                            Width="200">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="decanat:Student">
+                                <Border BorderBrush="Aquamarine"
+                                        Padding="3"
+                                        CornerRadius="3"
+                                        BorderThickness="1">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Surname}"
+                                                   ToolTip="{Binding Name}" />
+                                        <TextBlock Text="{Binding Name}"
+                                                   ToolTip="{Binding Name}" />
+                                        <TextBlock Text="{Binding Patronymic}"
+                                                   ToolTip="{Binding Name}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+
             <TabItem Header="Студенты">
                 <Grid>
                     <Grid.ColumnDefinitions>
