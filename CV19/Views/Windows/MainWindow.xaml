@@ -72,6 +72,9 @@
                                         Padding="3"
                                         CornerRadius="3"
                                         BorderThickness="1">
+                                    <Border.CacheMode>
+                                        <BitmapCache />
+                                    </Border.CacheMode>
                                     <StackPanel>
                                         <TextBlock Text="{Binding Surname}"
                                                    ToolTip="{Binding Name}" />
