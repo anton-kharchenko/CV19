@@ -10,6 +10,7 @@
         xmlns:decanat="clr-namespace:CV19.Models.Decanat"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:l="clr-namespace:CV19"
+        xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="{Binding Title}"
         Height="697.169" Width="978.302">
@@ -54,7 +55,7 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl SelectedIndex="{Binding SelectedTabPage}">
-            <TabItem Header="Тестирование виртуализации">
+            <TabItem Header="Тестирование виртуализации" Visibility="Collapsed">
                 <Grid>
                     <TextBlock Text="{Binding Source={x:Static l:App.IsDesignMode}}" />
                     <ListBox Margin="30"
@@ -112,7 +113,15 @@
                                     Filter="GroupCollectionFilter"
                                     x:Key="GroupsCollection"
                                     x:Name="GroupsCollection"
-                                    Source="{Binding Groups}" />
+                                    Source="{Binding Groups}">
+                                    <CollectionViewSource.SortDescriptions>
+                                        <componentModel:SortDescription PropertyName="Name" Direction="Descending" />
+                                    </CollectionViewSource.SortDescriptions>
+                                    <CollectionViewSource.GroupDescriptions>
+                                        <PropertyGroupDescription PropertyName="Students.Count">
+                                        </PropertyGroupDescription>
+                                    </CollectionViewSource.GroupDescriptions>
+                                </CollectionViewSource>
                             </DockPanel.Resources>
                             <DockPanel DockPanel.Dock="Top" Margin="0,3">
                                 <fa:ImageAwesome Icon="Solid_Search" Height="12" Margin="0,3" />
@@ -162,14 +171,18 @@
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Top" Margin="0,3">
                                 <fa:ImageAwesome Icon="Solid_Search" Height="12" Margin="0,3" />
-                                <TextBox />
+                                <TextBox Text="{Binding StudentFilterText,
+                                    UpdateSourceTrigger=PropertyChanged}" />
                             </DockPanel>
                             <DataGrid AutoGenerateColumns="False"
                                       CanUserAddRows="False"
                                       GridLinesVisibility="Vertical"
                                       VerticalGridLinesBrush="DimGray"
                                       AlternatingRowBackground="AntiqueWhite"
-                                      ItemsSource="{Binding SelectedGroup.Students}">
+                                      ItemsSource="{Binding SelectedGroupStudents}">
+                                <!--<DataGrid.GroupStyle>
+                                    <GroupStyle></GroupStyle>
+                                </DataGrid.GroupStyle>-->
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}" />
                                     <DataGridTextColumn Header="Имя" Binding="{Binding Name}" />
