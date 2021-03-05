@@ -134,6 +134,7 @@
     <Compile Include="Models\ProvinceInfo.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ViewModel\Base\ViewModel.cs" />
+    <Compile Include="ViewModel\DirectoryViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
