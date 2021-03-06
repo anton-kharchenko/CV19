@@ -11,7 +11,7 @@ using CV19.Models;
 
 namespace CV19.Services
 {
-    internal class DataSercives
+    internal class DataService
     {
         private const string _DataSourceAddress = @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 
@@ -31,7 +31,9 @@ namespace CV19.Services
             {
                 var line = data_reader.ReadLine();
                 if (string.IsNullOrEmpty(line)) continue;
-                yield return line.Replace("Korea,", "Korea -");
+                yield return line
+                    .Replace("Korea,", "Korea -")
+                    .Replace("Bonaire", "Bonaire -");
             }
         }
 
