@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using CV19.Models;
@@ -25,7 +26,7 @@ namespace CV19.Services
 
         private static IEnumerable<string> GetDataLines()
         {
-            using var data_stream = GetDataStream().Result;
+            using var data_stream = (SynchronizationContext.Current is null ? GetDataStream() : Task.Run(GetDataStream)).Result;
             using var data_reader = new StreamReader(data_stream);
             while (!data_reader.EndOfStream)
             {
@@ -54,8 +55,8 @@ namespace CV19.Services
             {
                 var province = row[0].Trim();
                 var country_name = row[1].Trim(' ', '"');
-                var latidude = double.Parse(row[2]);
-                var longidude = double.Parse(row[3]);
+                double.TryParse(row[3], out double latidude);
+                double.TryParse(row[4], out double longidude);
                 var counts = row.Skip(5).Select(int.Parse).ToArray();
 
                 yield return (province, country_name, (latidude, longidude), counts);
