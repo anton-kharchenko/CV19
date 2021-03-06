@@ -134,7 +134,7 @@
     <Compile Include="Models\CountryInfo.cs" />
     <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\DataSercives.cs" />
+    <Compile Include="Services\DataSercive.cs" />
     <Compile Include="ViewModel\Base\ViewModel.cs" />
     <Compile Include="ViewModel\DirectoryViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

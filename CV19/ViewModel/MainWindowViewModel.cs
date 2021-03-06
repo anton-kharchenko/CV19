@@ -43,7 +43,7 @@ namespace CV19.ViewModel
 
             _TestPoints = data_points;
 
-            var student_index = 1;
+            /*var student_index = 1;*/
             var rating = 1;
 
             var students = Enumerable.Range(1, 10).Select(i => new Student
