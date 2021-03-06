@@ -8,13 +8,15 @@ using System.Windows.Data;
 using System.Windows.Input;
 using CV19.Infrastructure.Commands;
 using CV19.Models.Decanat;
-using OxyPlot;
+using CV19.Views;
 using DataPoint = CV19.Models.DataPoint;
 
 namespace CV19.ViewModel
 {
     internal class MainWindowViewModel : Base.ViewModel
     {
+        private readonly CountriesStatisticViewModel _countriesStatistic;
+
         public MainWindowViewModel()
         {
             #region Команды
@@ -25,6 +27,8 @@ namespace CV19.ViewModel
             ChangeTabItem = new LambdaCommand(OnChangeTabItemExecuted, CanChangeTabItemExecuted);
 
             #endregion Команды
+
+            _countriesStatistic = new CountriesStatisticViewModel(this);
 
             var data_points = new List<DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
