@@ -148,7 +148,7 @@
     <Compile Include="Views\CountriesStatisticView.xaml.cs">
       <DependentUpon>CountriesStatisticView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CountriesViewModel.cs" />
+    <Compile Include="ViewModel\CountriesStatisticViewModel.cs" />
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

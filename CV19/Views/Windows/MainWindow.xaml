@@ -13,6 +13,7 @@
         mc:Ignorable="d"
         Title="{Binding Title}"
         Height="697.169" Width="978.302">
+
     <Window.InputBindings>
         <KeyBinding
             Modifiers="Control" Key="Q" Command="{Binding CloseAppApplicationCommand}" />
@@ -55,7 +56,7 @@
         </StatusBar>
         <TabControl>
             <TabItem Header="Статистика">
-                <view:CountriesStatisticView />
+                <view:CountriesStatisticView DataContext="{Binding CountriesStatistic}" />
             </TabItem>
             <!--<TabItem Header="Тестирование виртуализации" Visibility="Collapsed">
                 <Grid>
@@ -113,8 +114,7 @@
                                 <CollectionViewSource
                                     Filter="GroupCollectionFilter"
                                     x:Key="GroupsCollection"
-                                    x:Name="GroupsCollection"
-                                    Source="{Binding Groups}">
+                                    x:Name="GroupsCollection">
                                     <CollectionViewSource.SortDescriptions>
                                         <componentModel:SortDescription PropertyName="Name" Direction="Descending" />
                                     </CollectionViewSource.SortDescriptions>

@@ -15,7 +15,7 @@ namespace CV19.ViewModel
 {
     internal class MainWindowViewModel : Base.ViewModel
     {
-        private readonly CountriesStatisticViewModel _countriesStatistic;
+        public CountriesStatisticViewModel CountriesStatistic { get; }
 
         public MainWindowViewModel()
         {
@@ -28,7 +28,7 @@ namespace CV19.ViewModel
 
             #endregion Команды
 
-            _countriesStatistic = new CountriesStatisticViewModel(this);
+            CountriesStatistic = new CountriesStatisticViewModel(this);
 
             var data_points = new List<DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
@@ -103,7 +103,7 @@ namespace CV19.ViewModel
 
         public ICommand CreateGroupCommand { get; }
 
-        private bool CanCreateGroupCommandExecute(object p) => true;
+        public bool CanCreateGroupCommandExecute(object p) => true;
 
         #endregion Команды
 
