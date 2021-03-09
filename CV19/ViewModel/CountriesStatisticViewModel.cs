@@ -26,6 +26,7 @@ namespace CV19.ViewModel
             #endregion Команды
         }
 
+        /// <summary> Отладочный конструктор в процессе разработки в визуальном дизайнере </summary>
         public CountriesStatisticViewModel() : this(null)
         {
             if (!App.IsDesignMode)
@@ -46,6 +47,20 @@ namespace CV19.ViewModel
                 }).ToArray()
             });
         }
+
+        #region SelectedCountries : CountryInfo - Выбранная страна
+
+        /// <summary>Выбранная страна</summary>
+        private CountryInfo _selectedCountry;
+
+        /// <summary>Выбранная страна</summary>
+        public CountryInfo SelectedCountry
+        {
+            get => _selectedCountry;
+            set => Set(ref _selectedCountry, value);
+        }
+
+        #endregion SelectedCountries : CountryInfo - Выбранная страна
 
         #region _Countries :  IEnumerable<CountryInfo> - Статистика по странам
 
