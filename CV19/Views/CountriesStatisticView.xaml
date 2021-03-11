@@ -7,6 +7,7 @@
              xmlns:converters="clr-namespace:CV19.Infrastructure.Converters"
              xmlns:m="clr-namespace:CV19.Models"
              xmlns:vm="clr-namespace:CV19.ViewModel"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance  vm:CountriesStatisticViewModel, d:IsDesignTimeCreatable=true}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -44,8 +45,10 @@
         <GroupBox Header="Информация" Grid.Column="1">
             <Grid>
                 <Grid.Resources>
+                    <system:Double x:Key="Value3">3</system:Double>
+
                     <converters:Ratio x:Key="Ratio2"  K="2" />
-                    <converters:Linear   K="5" B="2" x:Key="LinerK5B2" />
+                    <converters:Linear   K="5" B="{StaticResource Value3}" x:Key="LinerK5B2" />
                 </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition />
