@@ -46,22 +46,35 @@
             <Grid>
                 <Grid.Resources>
                     <system:Double x:Key="Value3">3</system:Double>
-
-                    <converters:Ratio x:Key="Ratio2"  K="2" />
-                    <converters:Linear   K="5" B="{StaticResource Value3}" x:Key="LinerK5B2" />
+                    <converters:CompositeConvertor x:Key="CompositeConvertor">
+                        <converters:CompositeConvertor.First>
+                            <converters:Linear K="5" />
+                        </converters:CompositeConvertor.First>
+                        <converters:CompositeConvertor.Second>
+                            <converters:Linear K="-3" B="10" />
+                        </converters:CompositeConvertor.Second>
+                    </converters:CompositeConvertor>
+                    <!--<converters:Ratio x:Key="Ratio2"  K="2" />
+                    <converters:Linear   K="5" B="{StaticResource Value3}" x:Key="LinerK5B2" />-->
                 </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Panel.ZIndex="1000" />
-                <Slider Grid.Row="0" Name="ValueSlider" Maximum="100"  ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
+                <GridSplitter VerticalAlignment="Bottom"
+                              HorizontalAlignment="Stretch"
+                              Panel.ZIndex="1000" />
+                <Slider Grid.Row="0" Name="ValueSlider"
+                        Maximum="100"
+                        ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
                 <TextBox Grid.Row="0"
                          Text="{Binding Value,
                                     ElementName=ValueSlider,
-                                    Converter={StaticResource Ratio2},
+                                    Converter={StaticResource CompositeConvertor},
                                     UpdateSourceTrigger=PropertyChanged}"
-                         VerticalAlignment="Top" HorizontalAlignment="Left" Width="200"
+                         VerticalAlignment="Top"
+                         HorizontalAlignment="Left"
+                         Width="200"
                          Margin="0, 30,0,0" />
             </Grid>
         </GroupBox>
