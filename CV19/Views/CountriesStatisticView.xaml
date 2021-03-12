@@ -11,7 +11,7 @@
              xmlns:common="clr-namespace:CV19.Infrastructure.Common"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance  vm:CountriesStatisticViewModel, d:IsDesignTimeCreatable=true}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" x:ClassModifier="internal">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="230" />
@@ -47,15 +47,15 @@
             <Grid>
                 <Grid.Resources>
                     <system:Double x:Key="Value3">3</system:Double>
-                    <converters:CompositeConvertor x:Key="CompositeConvertor">
-                        <converters:CompositeConvertor.First>
-                            <converters:Linear K="5" />
-                        </converters:CompositeConvertor.First>
-                        <converters:CompositeConvertor.Second>
-                            <converters:Linear K="-3" B="10" />
-                        </converters:CompositeConvertor.Second>
-                    </converters:CompositeConvertor>
-                    <converters:ToArray x:Key="ToArray" />
+                    <!-- <converters:CompositeConvertor x:Key="Convertor"> -->
+                    <!--     <converters:CompositeConvertor.First> -->
+                    <!--         <converters:Linear K="5" /> -->
+                    <!--     </converters:CompositeConvertor.First> -->
+                    <!--     <converters:CompositeConvertor.Second> -->
+                    <!--         <converters:Linear K="-3" B="10" /> -->
+                    <!--     </converters:CompositeConvertor.Second> -->
+                    <!-- </converters:CompositeConvertor> -->
+                    <!-- <converters:ToArray x:Key="ToArray" /> -->
                     <!--<converters:Ratio x:Key="Ratio2"  K="2" />
                     <converters:Linear   K="5" B="{StaticResource Value3}" x:Key="LinerK5B2" />-->
                 </Grid.Resources>
@@ -66,26 +66,6 @@
                 <GridSplitter VerticalAlignment="Bottom"
                               HorizontalAlignment="Stretch"
                               Panel.ZIndex="1000" />
-                <StackPanel Grid.Row="0">
-                    <Slider Maximum="100"
-                            Name="Value1"
-                            ToolTip="{Binding Value,
-                        RelativeSource={RelativeSource Self}, Converter={converters:CompositeConvertor First={converters:Add 5}}}" />
-                    <Slider Maximum="100"
-                            Name="Value2"
-                            ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
-                    <Slider Maximum="100"
-                            Name="Value3"
-                            ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
-                    <Slider Maximum="100"
-                            Name="Value4"
-                            ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
-                </StackPanel>
-                <Border Grid.Row="1">
-                    <Border.DataContext>
-                        <common:StringToIntArray Str="1;2;3;4;12" />
-                    </Border.DataContext>
-                </Border>
                 <ListBox Grid.Row="1">
                     <!-- <ListBox.ItemsSource> -->
                     <!--     <MultiBinding Converter="{StaticResource ToArray}"> -->

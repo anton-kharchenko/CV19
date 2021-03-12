@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Markup;
 using CV19.Infrastructure.Commands;
+using CV19.Models;
 using CV19.Models.Decanat;
-using CV19.Views;
-using DataPoint = CV19.Models.DataPoint;
 
 namespace CV19.ViewModel
 {
+    [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
     internal class MainWindowViewModel : Base.ViewModel
     {
         public CountriesStatisticViewModel CountriesStatistic { get; }
@@ -74,7 +74,8 @@ namespace CV19.ViewModel
 
         private void OnCloseAppApplicationCommandExecuted(object p)
         {
-            Application.Current.Shutdown();
+            // Application.Current.Shutdown();
+            (RootObject as Window)?.Close();
         }
 
         private bool CanCloseAppApplicationCommandExecute(object p)
@@ -103,7 +104,10 @@ namespace CV19.ViewModel
 
         public ICommand CreateGroupCommand { get; }
 
-        public bool CanCreateGroupCommandExecute(object p) => true;
+        public bool CanCreateGroupCommandExecute(object p)
+        {
+            return true;
+        }
 
         #endregion Команды
 
@@ -222,7 +226,7 @@ namespace CV19.ViewModel
 
         #region SelectedGroupStudents
 
-        public readonly CollectionViewSource _SelectedGroupStudents = new CollectionViewSource();
+        public readonly CollectionViewSource _SelectedGroupStudents = new();
 
         public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
 
@@ -230,10 +234,10 @@ namespace CV19.ViewModel
 
         public IEnumerable<Student> TestStudents =>
             Enumerable.Range(1, App.IsDesignMode ? 10 : 100000)
-            .Select(i => new Student()
-            {
-                Name = $"Имя {i}",
-                Surname = $"Фамилия {i}"
-            });
+                .Select(i => new Student
+                {
+                    Name = $"Имя {i}",
+                    Surname = $"Фамилия {i}"
+                });
     }
 }
