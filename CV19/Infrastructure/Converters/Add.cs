@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows.Data;
 using System.Windows.Markup;
 
 namespace CV19.Infrastructure.Converters
 {
-    [ValueConversion(typeof(double), typeof(double))]
-    [MarkupExtensionReturnType(typeof(Ratio))]
-    internal class Ratio : Convertor
+    internal class Add : Convertor
     {
-        [ConstructorArgument("K")]
-        public double K { get; set; } = 1;
+        [ConstructorArgument("K")] public double B { get; set; } = 1;
 
-        public Ratio()
+        public Add()
         {
         }
 
-        public Ratio(double k) => K = k;
+        public Add(double b)
+        {
+            B = b;
+        }
 
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -24,7 +23,7 @@ namespace CV19.Infrastructure.Converters
 
             var x = System.Convert.ToDouble(value, culture);
 
-            return x * K;
+            return x + B;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -33,9 +32,7 @@ namespace CV19.Infrastructure.Converters
 
             var x = System.Convert.ToDouble(value, culture);
 
-            return x / K;
+            return x - B;
         }
     }
-
-  
 }

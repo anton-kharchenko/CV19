@@ -8,6 +8,7 @@
              xmlns:m="clr-namespace:CV19.Models"
              xmlns:vm="clr-namespace:CV19.ViewModel"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:common="clr-namespace:CV19.Infrastructure.Common"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance  vm:CountriesStatisticViewModel, d:IsDesignTimeCreatable=true}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -68,7 +69,8 @@
                 <StackPanel Grid.Row="0">
                     <Slider Maximum="100"
                             Name="Value1"
-                            ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
+                            ToolTip="{Binding Value,
+                        RelativeSource={RelativeSource Self}, Converter={converters:CompositeConvertor First={converters:Add 5}}}" />
                     <Slider Maximum="100"
                             Name="Value2"
                             ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
@@ -79,15 +81,20 @@
                             Name="Value4"
                             ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
                 </StackPanel>
+                <Border Grid.Row="1">
+                    <Border.DataContext>
+                        <common:StringToIntArray Str="1;2;3;4;12" />
+                    </Border.DataContext>
+                </Border>
                 <ListBox Grid.Row="1">
-                    <ListBox.ItemsSource>
-                        <MultiBinding Converter="{StaticResource ToArray}">
-                            <Binding ElementName="Value1"  Path="Value" />
-                            <Binding ElementName="Value2"  Path="Value" />
-                            <Binding ElementName="Value3"  Path="Value" />
-                            <Binding ElementName="Value4" Path="Value" />
-                        </MultiBinding>
-                    </ListBox.ItemsSource>
+                    <!-- <ListBox.ItemsSource> -->
+                    <!--     <MultiBinding Converter="{StaticResource ToArray}"> -->
+                    <!--         <Binding ElementName="Value1"  Path="Value" /> -->
+                    <!--         <Binding ElementName="Value2"  Path="Value" /> -->
+                    <!--         <Binding ElementName="Value3"  Path="Value" /> -->
+                    <!--         <Binding ElementName="Value4" Path="Value" /> -->
+                    <!--     </MultiBinding> -->
+                    <!-- </ListBox.ItemsSource> -->
                 </ListBox>
             </Grid>
         </GroupBox>
