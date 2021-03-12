@@ -10,7 +10,7 @@ namespace CV19.Infrastructure.Converters
     {
         public CompositeConvertor(IValueConverter first) => First = first;
 
-        public CompositeConvertor(IValueConverter first, IValueConverter second) : this(First) => Second = second;
+        public CompositeConvertor(IValueConverter first, IValueConverter second) : this(first) => Second = second;
 
         public CompositeConvertor()
         {
