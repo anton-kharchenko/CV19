@@ -54,6 +54,7 @@
                             <converters:Linear K="-3" B="10" />
                         </converters:CompositeConvertor.Second>
                     </converters:CompositeConvertor>
+                    <converters:ToArray x:Key="ToArray" />
                     <!--<converters:Ratio x:Key="Ratio2"  K="2" />
                     <converters:Linear   K="5" B="{StaticResource Value3}" x:Key="LinerK5B2" />-->
                 </Grid.Resources>
@@ -64,18 +65,30 @@
                 <GridSplitter VerticalAlignment="Bottom"
                               HorizontalAlignment="Stretch"
                               Panel.ZIndex="1000" />
-                <Slider Grid.Row="0" Name="ValueSlider"
-                        Maximum="100"
-                        ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
-                <TextBox Grid.Row="0"
-                         Text="{Binding Value,
-                                    ElementName=ValueSlider,
-                                    Converter={StaticResource CompositeConvertor},
-                                    UpdateSourceTrigger=PropertyChanged}"
-                         VerticalAlignment="Top"
-                         HorizontalAlignment="Left"
-                         Width="200"
-                         Margin="0, 30,0,0" />
+                <StackPanel Grid.Row="0">
+                    <Slider Maximum="100"
+                            Name="Value1"
+                            ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
+                    <Slider Maximum="100"
+                            Name="Value2"
+                            ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
+                    <Slider Maximum="100"
+                            Name="Value3"
+                            ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
+                    <Slider Maximum="100"
+                            Name="Value4"
+                            ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
+                </StackPanel>
+                <ListBox Grid.Row="1">
+                    <ListBox.ItemsSource>
+                        <MultiBinding Converter="{StaticResource ToArray}">
+                            <Binding ElementName="Value1"  Path="Value" />
+                            <Binding ElementName="Value2"  Path="Value" />
+                            <Binding ElementName="Value3"  Path="Value" />
+                            <Binding ElementName="Value4" Path="Value" />
+                        </MultiBinding>
+                    </ListBox.ItemsSource>
+                </ListBox>
             </Grid>
         </GroupBox>
     </Grid>
