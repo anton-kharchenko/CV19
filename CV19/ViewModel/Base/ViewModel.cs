@@ -46,21 +46,24 @@ namespace CV19.ViewModel.Base
             var valueCurrentService = serviceProvider.GetService(typeof(IProvideValueTarget)) as IProvideValueTarget;
             var rootCurrentService = serviceProvider.GetService(typeof(IRootObjectProvider)) as IRootObjectProvider;
 
-            OnInitialize(valueCurrentService.TargetObject, valueCurrentService.TargetProperty, rootCurrentService.RootObject);
+            if (valueCurrentService != null)
+                if (rootCurrentService != null)
+                    OnInitialize(valueCurrentService.TargetObject, valueCurrentService.TargetProperty,
+                        rootCurrentService.RootObject);
 
             return this;
         }
 
-        private WeakReference _TargetRef;
-        private WeakReference _RootRef;
+        private WeakReference _targetRef;
+        private WeakReference _rootRef;
 
-        public object RootObject =>  _RootRef.Target;
-        public object TargetObject => _TargetRef.Target;
+        public object RootObject => _rootRef.Target;
+        public object TargetObject => _targetRef.Target;
 
         protected virtual void OnInitialize(object valueTarget, object valueProperty, object rootObject)
         {
-            _TargetRef = new WeakReference(valueTarget);
-            _RootRef = new WeakReference(rootObject);
+            _targetRef = new WeakReference(valueTarget);
+            _rootRef = new WeakReference(rootObject);
         }
     }
 }
