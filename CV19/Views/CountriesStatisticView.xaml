@@ -8,6 +8,7 @@
              xmlns:m="clr-namespace:CV19.Models"
              xmlns:vm="clr-namespace:CV19.ViewModel"
              xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:mapControl="clr-namespace:MapControl;assembly=MapControl.WPF"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance  vm:CountriesStatisticViewModel, d:IsDesignTimeCreatable=true}"
              d:DesignHeight="450" d:DesignWidth="800" x:ClassModifier="internal">
@@ -63,7 +64,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Panel.ZIndex="1000" />
-                <oxy:Plot Grid.Row="1">
+                <oxy:Plot Grid.Row="0">
                     <oxy:Plot.Axes>
                         <oxy:LinearAxis  Position="Left" Title="Число" MajorGridlineStyle="Solid" MinorGridlineStyle="Dash" />
                         <oxy:DateTimeAxis  Position="Bottom" Title="Дата"  MajorGridlineStyle="Solid" MinorGridlineStyle="Dash" />
@@ -73,6 +74,14 @@
                                     ItemsSource="{Binding SelectedCountry.Counts}"
                                     DataFieldX="Date" DataFieldY="Count" />
                 </oxy:Plot>
+                <mapControl:Map Grid.Row="1" ZoomLevel="4" MaxZoomLevel="21"
+                                Center="{Binding SelectedCountry.Location, Converter={converters:PointToMapLocation}}">
+                    <mapControl:MapScale Margin="4" Opacity="1" Background="Transparent" VerticalAlignment="Bottom" />
+                    <mapControl:MapGraticule Opacity="0.3" Background="Transparent" />
+                    <mapControl:Map.MapLayer>
+                        <mapControl:MapTileLayer TileSource="http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png" />
+                    </mapControl:Map.MapLayer>
+                </mapControl:Map>
             </Grid>
         </GroupBox>
     </Grid>
