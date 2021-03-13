@@ -8,6 +8,8 @@ namespace CV19.Models
     {
         private Point? _Location;
 
+        private IEnumerable<ConfirmedCount> _counts;
+
         public override Point Location
         {
             get
@@ -25,5 +27,37 @@ namespace CV19.Models
         }
 
         public IEnumerable<PlaceInfo> ProvincesCount { get; set; }
+
+        public override IEnumerable<ConfirmedCount> Counts
+        {
+            get
+            {
+                if (_counts != null) return _counts;
+
+                var pointsCount = ProvincesCount.FirstOrDefault()?.Counts.Count() ?? 0;
+                if (pointsCount == 0) return Enumerable.Empty<ConfirmedCount>();
+
+                var provincesPoints = ProvincesCount.Select(p => p.Counts.ToArray()).ToArray();
+
+                var points = new ConfirmedCount[pointsCount];
+                foreach (var provinces in provincesPoints)
+                {
+                    for (var i = 0; i < pointsCount; i++)
+                    {
+                        if (points[i].Date == default)
+                        {
+                            points[i] = provinces[i];
+                        }
+                        else
+                        {
+                            points[i].Count += provinces[i].Count;
+                        }
+                    }
+                }
+
+                return _counts = points;
+            }
+            set => _counts = value;
+        }
     }
 }
