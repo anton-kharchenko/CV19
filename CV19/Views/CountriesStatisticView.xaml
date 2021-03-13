@@ -7,8 +7,7 @@
              xmlns:converters="clr-namespace:CV19.Infrastructure.Converters"
              xmlns:m="clr-namespace:CV19.Models"
              xmlns:vm="clr-namespace:CV19.ViewModel"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
-             xmlns:common="clr-namespace:CV19.Infrastructure.Common"
+             xmlns:oxy="http://oxyplot.org/wpf"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance  vm:CountriesStatisticViewModel, d:IsDesignTimeCreatable=true}"
              d:DesignHeight="450" d:DesignWidth="800" x:ClassModifier="internal">
@@ -35,7 +34,8 @@
                             </DataTemplate.Resources>
                             <TextBlock>
                                 <TextBlock Text="{Binding Name}" />
-                                <TextBlock Text="{Binding Location,
+                                <TextBlock
+                                    Text="{Binding Location,
                                 Converter={StaticResource LocationConvertor}, StringFormat=({0})}" />
                             </TextBlock>
                         </DataTemplate>
@@ -46,7 +46,6 @@
         <GroupBox Header="Информация" Grid.Column="1">
             <Grid>
                 <Grid.Resources>
-                    <system:Double x:Key="Value3">3</system:Double>
                     <!-- <converters:CompositeConvertor x:Key="Convertor"> -->
                     <!--     <converters:CompositeConvertor.First> -->
                     <!--         <converters:Linear K="5" /> -->
@@ -63,19 +62,17 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <GridSplitter VerticalAlignment="Bottom"
-                              HorizontalAlignment="Stretch"
-                              Panel.ZIndex="1000" />
-                <ListBox Grid.Row="1">
-                    <!-- <ListBox.ItemsSource> -->
-                    <!--     <MultiBinding Converter="{StaticResource ToArray}"> -->
-                    <!--         <Binding ElementName="Value1"  Path="Value" /> -->
-                    <!--         <Binding ElementName="Value2"  Path="Value" /> -->
-                    <!--         <Binding ElementName="Value3"  Path="Value" /> -->
-                    <!--         <Binding ElementName="Value4" Path="Value" /> -->
-                    <!--     </MultiBinding> -->
-                    <!-- </ListBox.ItemsSource> -->
-                </ListBox>
+                <GridSplitter VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Panel.ZIndex="1000" />
+                <oxy:Plot Grid.Row="1">
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis  Position="Left" Title="Число" MajorGridlineStyle="Solid" MinorGridlineStyle="Dash" />
+                        <oxy:DateTimeAxis  Position="Bottom" Title="Дата"  MajorGridlineStyle="Solid" MinorGridlineStyle="Dash" />
+                    </oxy:Plot.Axes>
+                    <oxy:LineSeries StrokeThickness="2"
+                                    Color="Red"
+                                    ItemsSource="{Binding SelectedCountry.Counts}"
+                                    DataFieldX="Date" DataFieldY="Count" />
+                </oxy:Plot>
             </Grid>
         </GroupBox>
     </Grid>
