@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,7 +13,8 @@ namespace CV19.Services
 {
     internal class DataService
     {
-        private const string _DataSourceAddress = @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
+        private const string _DataSourceAddress =
+            @"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 
         private static async Task<Stream> GetDataStream()
         {
@@ -27,7 +27,8 @@ namespace CV19.Services
 
         private static IEnumerable<string> GetDataLines()
         {
-            using var dataStream = (SynchronizationContext.Current is null ? GetDataStream() : Task.Run(GetDataStream)).Result;
+            using var dataStream = (SynchronizationContext.Current is null ? GetDataStream() : Task.Run(GetDataStream))
+                .Result;
             using var dataReader = new StreamReader(dataStream);
             while (!dataReader.EndOfStream)
             {
@@ -35,18 +36,23 @@ namespace CV19.Services
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 yield return line
                     .Replace("Korea,", "Korea -")
-                    .Replace("Bonaire", "Bonaire -");
+                    .Replace("United Kingdom", "")
+                    .Replace("Bonaire,", "Bonaire -");
             }
         }
 
-        private static DateTime[] GetDateTimes() => GetDataLines()
-            .First()
-            .Split(',')
-            .Skip(4)
-            .Select(s => DateTime.Parse(s, CultureInfo.InvariantCulture))
-            .ToArray();
+        private static DateTime[] GetDateTimes()
+        {
+            return GetDataLines()
+                .First()
+                .Split(',')
+                .Skip(4)
+                .Select(s => DateTime.Parse(s, CultureInfo.InvariantCulture))
+                .ToArray();
+        }
 
-        public static IEnumerable<(string Province, string Country, (double Lat, double Lon) Place, int[] Counts)> GetCountriesData()
+        public static IEnumerable<(string Province, string Country, (double Lat, double Lon) Place, int[] Counts)>
+            GetCountriesData()
         {
             var lines = GetDataLines()
                 .Skip(1)
@@ -56,8 +62,8 @@ namespace CV19.Services
             {
                 var province = row[0].Trim();
                 var countryName = row[1].Trim(' ', '"');
-                var latitude = double.Parse(row[3] == "" ? "0" : row[3], CultureInfo.InvariantCulture);
-                var longitude = double.Parse(row[4] == "" ? "0" : row[4], CultureInfo.InvariantCulture);
+                var latitude = double.Parse((row[2] == "" ? "0" : row[2]), CultureInfo.InvariantCulture);
+                var longitude = double.Parse((row[3] == "" ? "0" : row[3]), CultureInfo.InvariantCulture);
                 var counts = row.Skip(5).Select(int.Parse).ToArray();
 
                 yield return (province, countryName, (latitude, longitude), counts);
@@ -72,10 +78,10 @@ namespace CV19.Services
 
             foreach (var country_info in data)
             {
-                var country = new CountryInfo()
+                var country = new CountryInfo
                 {
                     Name = country_info.Key,
-                    ProvincesCount = country_info.Select(c => new PlaceInfo
+                    Provinces = country_info.Select(c => new PlaceInfo
                     {
                         Name = c.Province,
                         Location = new Point(c.Place.Lat, c.Place.Lon),

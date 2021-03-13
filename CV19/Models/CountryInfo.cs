@@ -6,27 +6,28 @@ namespace CV19.Models
 {
     internal class CountryInfo : PlaceInfo
     {
-        private Point? _Location;
-
-        private IEnumerable<ConfirmedCount> _counts;
+        private Point? _location;
 
         public override Point Location
         {
             get
             {
-                if (_Location != null)
-                    return (Point)_Location;
-                if (ProvincesCount is null) return default;
+                if (_location != null)
+                    return (Point)_location;
 
-                var average_x = ProvincesCount.Average(p => p.Location.X);
-                var average_y = ProvincesCount.Average(p => p.Location.Y);
+                if (Provinces is null) return default;
 
-                return (Point)(_Location = new Point(average_x, average_y));
+                var averageX = Provinces.Average(p => p.Location.X);
+                var averageY = Provinces.Average(p => p.Location.Y);
+
+                return (Point)(_location = new Point(averageX, averageY));
             }
-            set => _Location = value;
+            set => _location = value;
         }
 
-        public IEnumerable<PlaceInfo> ProvincesCount { get; set; }
+        public IEnumerable<PlaceInfo> Provinces { get; set; }
+
+        private IEnumerable<ConfirmedCount> _counts;
 
         public override IEnumerable<ConfirmedCount> Counts
         {
@@ -34,26 +35,20 @@ namespace CV19.Models
             {
                 if (_counts != null) return _counts;
 
-                var pointsCount = ProvincesCount.FirstOrDefault()?.Counts.Count() ?? 0;
+                var pointsCount = Provinces.FirstOrDefault()?.Counts?.Count() ?? 0;
                 if (pointsCount == 0) return Enumerable.Empty<ConfirmedCount>();
 
-                var provincesPoints = ProvincesCount.Select(p => p.Counts.ToArray()).ToArray();
+                var provincePoints = Provinces.Select(p => p.Counts.ToArray()).ToArray();
 
                 var points = new ConfirmedCount[pointsCount];
-                foreach (var provinces in provincesPoints)
-                {
+                foreach (var province in provincePoints)
                     for (var i = 0; i < pointsCount; i++)
                     {
                         if (points[i].Date == default)
-                        {
-                            points[i] = provinces[i];
-                        }
+                            points[i] = province[i];
                         else
-                        {
-                            points[i].Count += provinces[i].Count;
-                        }
+                            points[i].Count += province[i].Count;
                     }
-                }
 
                 return _counts = points;
             }
