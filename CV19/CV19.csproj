@@ -74,6 +74,9 @@
     <Reference Include="FontAwesome5.Net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
       <HintPath>..\packages\FontAwesome5.2.1.0\lib\net472\FontAwesome5.Net.dll</HintPath>
     </Reference>
+    <Reference Include="MapControl.WPF, Version=5.6.0.0, Culture=neutral, PublicKeyToken=f26fcf0059638459, processorArchitecture=MSIL">
+      <HintPath>..\packages\XAML.MapControl.5.6.0\lib\net462\MapControl.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -87,6 +90,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -105,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Resources\Base\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\DataTemplates\CompositeItemsContolDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -114,6 +122,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\GridSpliters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CountriesStatisticView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,16 +144,29 @@
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\CloseApplicationCommand.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
+    <Compile Include="Infrastructure\Common\StringToIntArray.cs" />
+    <Compile Include="Infrastructure\Converters\Add.cs" />
+    <Compile Include="Infrastructure\Converters\CompositeConvertor.cs" />
+    <Compile Include="Infrastructure\Converters\Convertor.cs" />
+    <Compile Include="Infrastructure\Converters\Linear.cs" />
+    <Compile Include="Infrastructure\Converters\LocationPointToStr.cs" />
+    <Compile Include="Infrastructure\Converters\MultiConverter.cs" />
+    <Compile Include="Infrastructure\Converters\PointToMapLocation.cs" />
+    <Compile Include="Infrastructure\Converters\Ratio.cs" />
+    <Compile Include="Infrastructure\Converters\ToArray.cs" />
     <Compile Include="Models\ConfirmedCount.cs" />
     <Compile Include="Models\Decanat\Student.cs" />
     <Compile Include="Models\PlaceInfo.cs" />
     <Compile Include="Models\CountryInfo.cs" />
     <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\DataSercives.cs" />
+    <Compile Include="Services\DataSercive.cs" />
     <Compile Include="ViewModel\Base\ViewModel.cs" />
-    <Compile Include="ViewModel\DirectoryViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="Views\CountriesStatisticView.xaml.cs">
+      <DependentUpon>CountriesStatisticView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\CountriesStatisticViewModel.cs" />
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

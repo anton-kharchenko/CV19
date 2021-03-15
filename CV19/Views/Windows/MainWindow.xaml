@@ -8,12 +8,12 @@
         xmlns:cmd="clr-namespace:CV19.Infrastructure.Commands"
         xmlns:vm="clr-namespace:CV19.ViewModel"
         xmlns:decanat="clr-namespace:CV19.Models.Decanat"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
-        xmlns:l="clr-namespace:CV19"
+        xmlns:view ="clr-namespace:CV19.Views"
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="{Binding Title}"
         Height="697.169" Width="978.302">
+
     <Window.InputBindings>
         <KeyBinding
             Modifiers="Control" Key="Q" Command="{Binding CloseAppApplicationCommand}" />
@@ -54,8 +54,11 @@
                 <ProgressBar Width="120" Height="14" Value="30" />
             </StatusBarItem>
         </StatusBar>
-        <TabControl SelectedIndex="{Binding SelectedTabPage}">
-            <TabItem Header="Тестирование виртуализации" Visibility="Collapsed">
+        <TabControl>
+            <TabItem Header="Статистика">
+                <view:CountriesStatisticView DataContext="{Binding CountriesStatistic}" />
+            </TabItem>
+            <!--<TabItem Header="Тестирование виртуализации" Visibility="Collapsed">
                 <Grid>
                     <TextBlock Text="{Binding Source={x:Static l:App.IsDesignMode}}" />
                     <ListBox Margin="30"
@@ -97,7 +100,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
-            </TabItem>
+            </TabItem>-->
             <TabItem Header="Студенты">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -111,8 +114,7 @@
                                 <CollectionViewSource
                                     Filter="GroupCollectionFilter"
                                     x:Key="GroupsCollection"
-                                    x:Name="GroupsCollection"
-                                    Source="{Binding Groups}">
+                                    x:Name="GroupsCollection">
                                     <CollectionViewSource.SortDescriptions>
                                         <componentModel:SortDescription PropertyName="Name" Direction="Descending" />
                                     </CollectionViewSource.SortDescriptions>
@@ -128,11 +130,10 @@
                             </DockPanel>
                             <UniformGrid  DockPanel.Dock="Bottom" Rows="1" Margin="0, 3">
                                 <Button   Content="Добавить"  Padding="0, 7"
-                                          Style="{StaticResource CheckButtonStyle}"
-                                          Command="{Binding CreateGroupCommand}" />
+                                          Style="{StaticResource CheckButtonStyle}" />
                                 <Button  Content="Удалить"
                                          Style="{StaticResource RemoveButtonStyle}"
-                                         Command="{Binding DeleteGroupCommand}" CommandParameter="{Binding SelectedGroup}" />
+                                        CommandParameter="{Binding SelectedGroup}" />
                             </UniformGrid>
                             <ListBox ItemsSource="{Binding Source={StaticResource GroupsCollection}}"
                                      SelectedIndex="0"
@@ -221,7 +222,7 @@
                                     DataFieldY="YValue" />
                 </oxy:Plot>
             </TabItem>
-            <TabItem Header="Файловая система">
+            <!--<TabItem Header="Файловая система">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250">
@@ -229,7 +230,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Директория">
-                        <!--<ListBox SelectedIndex="0"
+                        ~1~<ListBox SelectedIndex="0"
                                  SelectedItem="{Binding SelectedDirectory}"
                                  ItemsSource="{Binding DiskRootDir.DirectoryFiles}">
                             <ListBox.ItemTemplate>
@@ -237,7 +238,7 @@
                                     <TextBlock Text="{Binding Name}" ToolTip="{Binding CreatedTime}" />
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
-                        </ListBox>-->
+                        </ListBox>@1@
                         <GroupBox.Resources>
                             <HierarchicalDataTemplate DataType="{x:Type vm:DirectoryViewModel}"
                                                       ItemsSource="{Binding DirectoryFiles}">
@@ -259,7 +260,7 @@
                         <ListBox SelectedItem="{Binding SelectedDirectory.Files, Mode=OneWay}" />
                     </GroupBox>
                 </Grid>
-            </TabItem>
+            </TabItem>-->
         </TabControl>
     </DockPanel>
 </Window>

@@ -2,10 +2,13 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Markup;
+using System.Xaml;
 
 namespace CV19.ViewModel.Base
 {
-    internal abstract class ViewModel : INotifyPropertyChanged, IDisposable
+    [MarkupExtensionReturnType(typeof(ViewModel))]
+    internal abstract class ViewModel : MarkupExtension, INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -36,6 +39,31 @@ namespace CV19.ViewModel.Base
             if (!disposing || _Dispodse) return;
             _Dispodse = true;
             // Освобождение управляемых ресурсов
+        }
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            var valueCurrentService = serviceProvider.GetService(typeof(IProvideValueTarget)) as IProvideValueTarget;
+            var rootCurrentService = serviceProvider.GetService(typeof(IRootObjectProvider)) as IRootObjectProvider;
+
+            if (valueCurrentService != null)
+                if (rootCurrentService != null)
+                    OnInitialize(valueCurrentService.TargetObject, valueCurrentService.TargetProperty,
+                        rootCurrentService.RootObject);
+
+            return this;
+        }
+
+        private WeakReference _targetRef;
+        private WeakReference _rootRef;
+
+        public object RootObject => _rootRef.Target;
+        public object TargetObject => _targetRef.Target;
+
+        protected virtual void OnInitialize(object valueTarget, object valueProperty, object rootObject)
+        {
+            _targetRef = new WeakReference(valueTarget);
+            _rootRef = new WeakReference(rootObject);
         }
     }
 }
