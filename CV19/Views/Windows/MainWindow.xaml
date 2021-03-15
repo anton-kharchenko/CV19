@@ -135,7 +135,9 @@
                                          Style="{StaticResource RemoveButtonStyle}"
                                         CommandParameter="{Binding SelectedGroup}" />
                             </UniformGrid>
-                            <ListBox ItemsSource="{Binding Source={StaticResource GroupsCollection}}"
+                            <ListBox 
+                                ItemsSource="{Binding 
+                                Source={StaticResource GroupsCollection}}"
                                      SelectedIndex="0"
                                      SelectedItem="{Binding SelectedGroup}"
                                      VirtualizingPanel.IsVirtualizing="True"
@@ -149,12 +151,15 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="decanat:Group">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}" x:Name="TextView" />
-                                            <TextBlock Text="{Binding Students.Count, StringFormat=Студентов:{0}}"
+                                            <TextBlock Text="{Binding Name}" 
+                                                       x:Name="TextView" />
+                                            <TextBlock Text="{Binding Students.Count, 
+                                            StringFormat=Студентов:{0}}"
                                                        Margin="3, 0, 0, 0" />
                                         </StackPanel>
                                         <DataTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding Students.Count}" Value="0">
+                                            <DataTrigger Binding="{Binding Students.Count}" 
+                                                         Value="0">
                                                 <Setter TargetName="TextView" Property="Foreground" Value="Red" />
                                             </DataTrigger>
                                         </DataTemplate.Triggers>
@@ -192,7 +197,8 @@
                                     <DataGridTemplateColumn Header="Дата рождения">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate DataType="decanat:Student">
-                                                <TextBlock Text="{Binding Birthday, StringFormat='dd.MM.yyyy'}" />
+                                                <TextBlock Text="{Binding Birthday, 
+                                                StringFormat='dd.MM.yyyy'}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
                                         <DataGridTemplateColumn.CellEditingTemplate>
