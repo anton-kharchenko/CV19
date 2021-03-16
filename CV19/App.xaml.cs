@@ -35,10 +35,14 @@ namespace CV19
             _host = null;
         }
 
-        public static void ConfigureServices(HostBuilderContext hostBuilderContext, IServiceCollection serviceCollection)
+        public static void ConfigureServices(IServiceCollection services)
         {
-            serviceCollection.AddSingleton<DataService>();
-            serviceCollection.AddSingleton<CountriesStatisticViewModel>();
+            services.AddSingleton<DataService>();
+            services.AddSingleton<CountriesStatisticViewModel>();
+        }
+
+        internal void InitializeComponent()
+        {
         }
     }
 }
