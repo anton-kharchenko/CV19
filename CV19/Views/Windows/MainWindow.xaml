@@ -6,9 +6,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmd="clr-namespace:CV19.Infrastructure.Commands"
-        xmlns:vm="clr-namespace:CV19.ViewModel"
         xmlns:decanat="clr-namespace:CV19.Models.Decanat"
-        xmlns:view ="clr-namespace:CV19.Views"
+        xmlns:vm="clr-namespace:CV19.ViewModel"
+        xmlns:view="clr-namespace:CV19.Views"
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="{Binding Title}"
@@ -135,8 +135,8 @@
                                          Style="{StaticResource RemoveButtonStyle}"
                                         CommandParameter="{Binding SelectedGroup}" />
                             </UniformGrid>
-                            <ListBox 
-                                ItemsSource="{Binding 
+                            <ListBox
+                                ItemsSource="{Binding
                                 Source={StaticResource GroupsCollection}}"
                                      SelectedIndex="0"
                                      SelectedItem="{Binding SelectedGroup}"
@@ -151,14 +151,14 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate DataType="decanat:Group">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}" 
+                                            <TextBlock Text="{Binding Name}"
                                                        x:Name="TextView" />
-                                            <TextBlock Text="{Binding Students.Count, 
+                                            <TextBlock Text="{Binding Students.Count,
                                             StringFormat=Студентов:{0}}"
                                                        Margin="3, 0, 0, 0" />
                                         </StackPanel>
                                         <DataTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding Students.Count}" 
+                                            <DataTrigger Binding="{Binding Students.Count}"
                                                          Value="0">
                                                 <Setter TargetName="TextView" Property="Foreground" Value="Red" />
                                             </DataTrigger>
@@ -197,7 +197,7 @@
                                     <DataGridTemplateColumn Header="Дата рождения">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate DataType="decanat:Student">
-                                                <TextBlock Text="{Binding Birthday, 
+                                                <TextBlock Text="{Binding Birthday,
                                                 StringFormat='dd.MM.yyyy'}" />
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>

@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using CV19.Models.Decanat;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
-using CV19.Models.Decanat;
 
 namespace CV19
 {
