@@ -11,27 +11,14 @@ namespace CV19
         {
             var app = new App();
             app.InitializeComponent();
-            app.Run();
+            app.Shutdown();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] Args)
-        {
-            var hostBuilder = Host.CreateDefaultBuilder(Args);
-
-            // Указываем текущую папку
-            hostBuilder.UseContentRoot(Environment.CurrentDirectory);
-            // Добавляем кофигурацию приложения
-            hostBuilder.ConfigureAppConfiguration((host, cfg) =>
-            {
-                // Где будет создан файл кофигурации
-                cfg.SetBasePath(Environment.CurrentDirectory);
-                // Какой файл нужно создать
-                cfg.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            });
-
-            hostBuilder.ConfigureServices(App.ConfigureServices);
-
-            return hostBuilder;
-        }
+        public static IHostBuilder CreateHostBuilder(string[] Args) => Host.CreateDefaultBuilder(Args)
+                .UseContentRoot(Environment.CurrentDirectory)
+                .ConfigureAppConfiguration((host, cfg) => cfg
+                    .SetBasePath(Environment.CurrentDirectory)
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true))
+                .ConfigureServices(App.ConfigureServices);
     }
 }
