@@ -1,17 +1,16 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-using CV19.Services;
+﻿using CV19.Services;
 using CV19.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Windows;
 
 namespace CV19
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App
+    public partial class App : Application
     {
         public static bool IsDesignMode { get; private set; } = true;
 
@@ -36,7 +35,7 @@ namespace CV19
             _host = null;
         }
 
-        public static void ConfigureServices(IHostBuilder hostBuilder, IServiceCollection serviceCollection)
+        public static void ConfigureServices(HostBuilderContext hostBuilderContext, IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<DataService>();
             serviceCollection.AddSingleton<CountriesStatisticViewModel>();

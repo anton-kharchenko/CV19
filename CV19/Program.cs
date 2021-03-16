@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace CV19
 {
@@ -29,7 +29,7 @@ namespace CV19
                 cfg.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             });
 
-            hostBuilder.ConfigureServices(App.ConfigureServices());
+            hostBuilder.ConfigureServices(App.ConfigureServices);
 
             return hostBuilder;
         }

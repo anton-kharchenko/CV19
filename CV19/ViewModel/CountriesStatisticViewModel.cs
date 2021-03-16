@@ -1,11 +1,11 @@
-﻿using System;
+﻿using CV19.Infrastructure.Commands;
+using CV19.Models;
+using CV19.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using CV19.Infrastructure.Commands;
-using CV19.Models;
-using CV19.Services;
 
 namespace CV19.ViewModel
 {

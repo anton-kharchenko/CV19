@@ -25,6 +25,5 @@ namespace CV19.Models.Decanat
         public IList<Student> Students { get; set; }
 
         public string Description { get; set; }
-
     }
 }

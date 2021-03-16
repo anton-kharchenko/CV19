@@ -36,6 +36,4 @@ namespace CV19.Infrastructure.Converters
             return x / K;
         }
     }
-
-  
 }

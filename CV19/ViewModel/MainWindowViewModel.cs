@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CV19.Infrastructure.Commands;
+using CV19.Models;
+using CV19.Models.Decanat;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -6,9 +9,6 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
-using CV19.Infrastructure.Commands;
-using CV19.Models;
-using CV19.Models.Decanat;
 
 namespace CV19.ViewModel
 {
