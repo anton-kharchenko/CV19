@@ -83,7 +83,10 @@
                                 MaxZoomLevel="21"
                                 Center="{Binding SelectedCountry.Location,
                                 Converter={converters:PointToMapLocation}}">
-                    <mapControl:MapScale Margin="4" Opacity="1" Background="Transparent" VerticalAlignment="Bottom" />
+                    <mapControl:MapScale Margin="4"
+                                         Opacity="1"
+                                         Background="Transparent"
+                                         VerticalAlignment="Bottom" />
                     <mapControl:MapGraticule Opacity="0.3" Background="Transparent" />
                     <mapControl:Map.MapLayer>
                         <mapControl:MapTileLayer TileSource="http://tile.stamen.com/toner-lite/{z}/{x}/{y}.png" />
