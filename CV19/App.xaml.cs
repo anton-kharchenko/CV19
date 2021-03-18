@@ -3,6 +3,8 @@ using CV19.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace CV19
@@ -41,8 +43,12 @@ namespace CV19
             services.AddSingleton<CountriesStatisticViewModel>();
         }
 
-        internal void InitializeComponent()
-        {
-        }
+        public static string CurrentDirectory => IsDesignMode 
+            ? Path.GetDirectoryName(GetSourceCodePath()) 
+            : Environment.CurrentDirectory;
+
+
+        private static string GetSourceCodePath([CallerFilePath] string Path = null) => Path;
+
     }
 }
