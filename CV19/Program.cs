@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System;
 
 namespace CV19
 {
@@ -14,11 +14,14 @@ namespace CV19
             app.Shutdown();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] Args) => Host.CreateDefaultBuilder(Args)
-                .UseContentRoot(Environment.CurrentDirectory)
+        public static IHostBuilder CreateHostBuilder(string[] Args)
+        {
+            return Host.CreateDefaultBuilder(Args)
+                .UseContentRoot(App.CurrentDirectory)
                 .ConfigureAppConfiguration((host, cfg) => cfg
-                    .SetBasePath(Environment.CurrentDirectory)
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true))
+                    .SetBasePath(App.CurrentDirectory)
+                    .AddJsonFile("appsettings.json", true, true))
                 .ConfigureServices(App.ConfigureServices);
+        }
     }
 }

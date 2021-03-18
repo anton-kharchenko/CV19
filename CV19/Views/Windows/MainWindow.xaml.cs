@@ -12,20 +12,20 @@ namespace CV19
     {
         public MainWindow() => InitializeComponent();
 
-        private void GroupCollectionFilter(object sender, FilterEventArgs e)
-        {
-            if (!(e.Item is Group group)) return;
-            if (group.Name == null) return;
-
-            var filter_text = GroupNameFilterText.Text;
-
-            if (filter_text.Length == 0) return;
-
-            if (group.Name.Contains(filter_text)) return;
-            if (group.Description != null && group.Description.Contains(filter_text)) return;
-
-            e.Accepted = false;
-        }
+        // private void GroupCollectionFilter(object sender, FilterEventArgs e)
+        // {
+        //     if (!(e.Item is Group group)) return;
+        //     if (group.Name == null) return;
+        //
+        //     var filter_text = GroupNameFilterText.Text;
+        //
+        //     if (filter_text.Length == 0) return;
+        //
+        //     if (group.Name.Contains(filter_text)) return;
+        //     if (group.Description != null && group.Description.Contains(filter_text)) return;
+        //
+        //     e.Accepted = false;
+        // }
 
         private void OnGroupFilterTextChanged(object sender, TextChangedEventArgs e)
         {
