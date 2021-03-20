@@ -40,15 +40,15 @@ namespace CV19
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<DataService>();
+
+            services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<CountriesStatisticViewModel>();
         }
 
-        public static string CurrentDirectory => IsDesignMode 
-            ? Path.GetDirectoryName(GetSourceCodePath()) 
+        public static string CurrentDirectory => IsDesignMode
+            ? Path.GetDirectoryName(GetSourceCodePath())
             : Environment.CurrentDirectory;
 
-
         private static string GetSourceCodePath([CallerFilePath] string Path = null) => Path;
-
     }
 }

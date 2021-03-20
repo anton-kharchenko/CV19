@@ -11,7 +11,7 @@ namespace CV19
         {
             var app = new App();
             app.InitializeComponent();
-            app.Shutdown();
+            app.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] Args)

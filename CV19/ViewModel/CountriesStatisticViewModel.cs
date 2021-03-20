@@ -12,12 +12,11 @@ namespace CV19.ViewModel
     internal class CountriesStatisticViewModel : ViewModel.Base.ViewModel
     {
         private readonly DataService _dataService;
-        private MainWindowViewModel MainModel { get; }
+        public MainWindowViewModel MainModel { get; internal set; }
 
-        public CountriesStatisticViewModel(MainWindowViewModel mainModel)
+        public CountriesStatisticViewModel(DataService dataService)
         {
-            MainModel = mainModel;
-            _dataService = new DataService();
+            _dataService = dataService;
 
             #region Команды
 
@@ -27,26 +26,26 @@ namespace CV19.ViewModel
         }
 
         /// <summary> Отладочный конструктор в процессе разработки в визуальном дизайнере </summary>
-        public CountriesStatisticViewModel() : this(null)
-        {
-            if (!App.IsDesignMode)
-                throw new InvalidOperationException("Вызов коструктора, непердназначенного для роботы вне режима разработки");
+        //public CountriesStatisticViewModel() : this(null)
+        //{
+        //    if (!App.IsDesignMode)
+        //        throw new InvalidOperationException("Вызов коструктора, непердназначенного для роботы вне режима разработки");
 
-            _countries = Enumerable.Range(1, 10).Select(i => new CountryInfo
-            {
-                Name = $"Country {i}",
-                Provinces = Enumerable.Range(1, 10).Select(j => new PlaceInfo
-                {
-                    Name = $"Provinces {i}",
-                    Location = new Point(i, j),
-                    Counts = Enumerable.Range(1, 10).Select(k => new ConfirmedCount
-                    {
-                        Date = DateTime.Now.Subtract(TimeSpan.FromDays(100 - k)),
-                        Count = k
-                    }).ToArray()
-                }).ToArray()
-            });
-        }
+        //    _countries = Enumerable.Range(1, 10).Select(i => new CountryInfo
+        //    {
+        //        Name = $"Country {i}",
+        //        Provinces = Enumerable.Range(1, 10).Select(j => new PlaceInfo
+        //        {
+        //            Name = $"Provinces {i}",
+        //            Location = new Point(i, j),
+        //            Counts = Enumerable.Range(1, 10).Select(k => new ConfirmedCount
+        //            {
+        //                Date = DateTime.Now.Subtract(TimeSpan.FromDays(100 - k)),
+        //                Count = k
+        //            }).ToArray()
+        //        }).ToArray()
+        //    });
+        //}
 
         #region SelectedCountries : CountryInfo - Выбранная страна
 
