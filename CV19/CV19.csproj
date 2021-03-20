@@ -310,6 +310,7 @@
     <Compile Include="Services\DataSercive.cs" />
     <Compile Include="ViewModel\Base\ViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\CountriesStatisticView.xaml.cs">
       <DependentUpon>CountriesStatisticView.xaml</DependentUpon>
     </Compile>

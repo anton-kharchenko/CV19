@@ -1,7 +1,9 @@
-﻿namespace CV19.ViewModel
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace CV19.ViewModel
 {
-    public class ViewModelLocator
+    internal class ViewModelLocator
     {
-        
+        public MainWindowViewModel MainWindowModel => App.Host.Services.GetRequiredService<MainWindowViewModel>();
     }
 }

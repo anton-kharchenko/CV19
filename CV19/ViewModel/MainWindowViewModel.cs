@@ -17,7 +17,7 @@ namespace CV19.ViewModel
     {
         public CountriesStatisticViewModel CountriesStatistic { get; }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(CountriesStatisticViewModel countriesStatistic)
         {
             #region Команды
 
@@ -28,7 +28,8 @@ namespace CV19.ViewModel
 
             #endregion Команды
 
-            CountriesStatistic = new CountriesStatisticViewModel(this);
+            CountriesStatistic = countriesStatistic;
+            countriesStatistic.MainModel = this;
 
             var data_points = new List<DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
