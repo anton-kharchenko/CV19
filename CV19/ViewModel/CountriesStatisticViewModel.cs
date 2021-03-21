@@ -1,11 +1,10 @@
 ﻿using CV19.Infrastructure.Commands;
 using CV19.Models;
 using CV19.Services;
-using System;
+using CV19.Services.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
 using System.Windows.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CV19.ViewModel
 {
@@ -14,9 +13,18 @@ namespace CV19.ViewModel
         private readonly DataService _dataService;
         public MainWindowViewModel MainModel { get; internal set; }
 
-        public CountriesStatisticViewModel(DataService dataService)
+        public CountriesStatisticViewModel(IDataService dataService)
         {
-            _dataService = dataService;
+            _dataService = (DataService)dataService;
+
+            var data = App.Host.Services.GetRequiredService<IDataService>();
+
+            var areRefEquals = ReferenceEquals(data, dataService);
+
+            //using (var scope = App.Host.Services.CreateScope())
+            //{
+            //    var data = scope.ServiceProvider.GetRequiredService<IDataService>();
+            //}
 
             #region Команды
 

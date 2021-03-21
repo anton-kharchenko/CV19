@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using CV19.Services.Interfaces;
 
 namespace CV19
 {
@@ -39,7 +40,8 @@ namespace CV19
 
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<DataService>();
+            services.AddTransient<IDataService, DataService>();
+            //services.AddScoped<IDataService, DataService>();
 
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<CountriesStatisticViewModel>();
