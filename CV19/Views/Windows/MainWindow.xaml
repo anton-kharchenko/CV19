@@ -57,15 +57,14 @@
             <TabItem Header="Отладка">
                 <!-- <TextBox Text="{x:Static system:Environment.CurrentDirectory}" /> -->
                 <Grid>
+                    <Grid.Resources>
+                        <converters:ParametricMultipleValueConverter x:Key="ConverterCoefficient" Value="{Binding Coefficient}" />
+                    </Grid.Resources>
                     <components:GaugeIndicator Width="80" Height="80"
-                        VerticalAlignment="Top" HorizontalAlignment="Left">
+                                               VerticalAlignment="Top" HorizontalAlignment="Left">
                         <components:GaugeIndicator.Value>
-                            <Binding Path="FuelCount">
-                                <Binding.Converter>
-                                    <converters:ParametricMultipleValueConverter
-                                        Value="{Binding Coefficient}" />
-                                </Binding.Converter>
-                            </Binding>
+                            <Binding Path="FuelCount"
+                                     Converter="{StaticResource ConverterCoefficient}" />
                         </components:GaugeIndicator.Value>
                     </components:GaugeIndicator>
                     <Slider HorizontalAlignment="Stretch" VerticalAlignment="Top"

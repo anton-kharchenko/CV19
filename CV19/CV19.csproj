@@ -301,6 +301,7 @@
     <Compile Include="Infrastructure\Converters\Add.cs" />
     <Compile Include="Infrastructure\Converters\CompositeConvertor.cs" />
     <Compile Include="Infrastructure\Converters\Convertor.cs" />
+    <Compile Include="Infrastructure\Converters\DebugConverter.cs" />
     <Compile Include="Infrastructure\Converters\Linear.cs" />
     <Compile Include="Infrastructure\Converters\LocationPointToStr.cs" />
     <Compile Include="Infrastructure\Converters\MultiConverter.cs" />
