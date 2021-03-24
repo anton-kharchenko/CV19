@@ -315,10 +315,14 @@
     <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Services\AsyncDataServes.cs" />
     <Compile Include="Services\DataSercive.cs" />
+    <Compile Include="Services\Interfaces\IAsyncDataService.cs" />
     <Compile Include="Services\Interfaces\IDataService.cs" />
+    <Compile Include="Services\Registrator.cs" />
     <Compile Include="ViewModel\Base\ViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\Registrator.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\CountriesStatisticView.xaml.cs">
       <DependentUpon>CountriesStatisticView.xaml</DependentUpon>
