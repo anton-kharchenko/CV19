@@ -1,25 +1,23 @@
-﻿using System;
+﻿using CV19.Infrastructure.Commands;
+using CV19.Models;
+using CV19.Models.Decanat;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using CV19.Infrastructure.Commands;
-using CV19.Models.Decanat;
-using OxyPlot;
-using DataPoint = CV19.Models.DataPoint;
+using System.Windows.Markup;
 
 namespace CV19.ViewModel
 {
+    [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
     internal class MainWindowViewModel : Base.ViewModel
     {
-        public ObservableCollection<Group> Groups { get; }
+        public CountriesStatisticViewModel CountriesStatistic { get; }
 
-        public object[] CompositeCollection { get; }
-
-        public MainWindowViewModel()
+        public MainWindowViewModel(CountriesStatisticViewModel countriesStatistic)
         {
             #region Команды
 
@@ -27,10 +25,11 @@ namespace CV19.ViewModel
                 CanCloseAppApplicationCommandExecute);
 
             ChangeTabItem = new LambdaCommand(OnChangeTabItemExecuted, CanChangeTabItemExecuted);
-            CreateGroupCommand = new LambdaCommand(OnCreateGroupCommandExecuted, CanCreateGroupCommandExecute);
-            DeleteGroupCommand = new LambdaCommand(OnDeleteGroupCommandExecuted, CanDeleteGroupCommandExecuted);
 
             #endregion Команды
+
+            CountriesStatistic = countriesStatistic;
+            countriesStatistic.MainModel = this;
 
             var data_points = new List<DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
@@ -43,7 +42,7 @@ namespace CV19.ViewModel
 
             _TestPoints = data_points;
 
-            var student_index = 1;
+            /*var student_index = 1;*/
             var rating = 1;
 
             var students = Enumerable.Range(1, 10).Select(i => new Student
@@ -54,28 +53,6 @@ namespace CV19.ViewModel
                 Birthday = DateTime.Now,
                 Rating = rating++
             });
-
-            var groups = Enumerable.Range(1, 20).Select(i => new Group
-            {
-                Name = $"Группа {i}",
-                Students = new ObservableCollection<Student>(students)
-            });
-
-            Groups = new ObservableCollection<Group>(groups);
-
-            var data_list = new List<object>();
-
-            data_list.Add("Hello");
-            data_list.Add(42);
-            var firstGroup = Groups[1];
-            data_list.Add(firstGroup);
-            data_list.Add(firstGroup.Students[0]);
-
-            CompositeCollection = data_list.ToArray();
-
-            _SelectedGroupStudents.Filter += OnStudentFilter;
-            //_SelectedGroupStudents.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Descending));
-            //_SelectedGroupStudents.GroupDescriptions.Add(new PropertyGroupDescription("Name"));
         }
 
         #region IEnumerable<DataPoint> - Тестовый набор данных для визуализации интерфейса
@@ -98,7 +75,8 @@ namespace CV19.ViewModel
 
         private void OnCloseAppApplicationCommandExecuted(object p)
         {
-            Application.Current.Shutdown();
+            // Application.Current.Shutdown();
+            (RootObject as Window)?.Close();
         }
 
         private bool CanCloseAppApplicationCommandExecute(object p)
@@ -127,35 +105,10 @@ namespace CV19.ViewModel
 
         public ICommand CreateGroupCommand { get; }
 
-        private bool CanCreateGroupCommandExecute(object p) => true;
-
-        private void OnCreateGroupCommandExecuted(object p)
+        public bool CanCreateGroupCommandExecute(object p)
         {
-            var group_max_index = Groups.Count + 1;
-            var new_group = new Group()
-            {
-                Name = $"Группа :{group_max_index}",
-                Students = new ObservableCollection<Student>()
-            };
-            Groups.Add(new_group);
+            return true;
         }
-
-        #region DeleteGroup
-
-        public ICommand DeleteGroupCommand { get; }
-
-        private bool CanDeleteGroupCommandExecuted(object p) => p is Group group && Groups.Contains(group);
-
-        private void OnDeleteGroupCommandExecuted(object p)
-        {
-            if (!(p is Group group)) return;
-            var group_index = Groups.IndexOf(group);
-            Groups.Remove(group);
-            if (group_index < Groups.Count)
-                SelectedGroup = Groups[group_index];
-        }
-
-        #endregion DeleteGroup
 
         #endregion Команды
 
@@ -274,34 +227,42 @@ namespace CV19.ViewModel
 
         #region SelectedGroupStudents
 
-        public readonly CollectionViewSource _SelectedGroupStudents = new CollectionViewSource();
+        public readonly CollectionViewSource _SelectedGroupStudents = new();
 
         public ICollectionView SelectedGroupStudents => _SelectedGroupStudents?.View;
 
         #endregion SelectedGroupStudents
 
-        public IEnumerable<Student> TestStudents =>
-            Enumerable.Range(1, App.IsDesignMode ? 10 : 100000)
-            .Select(i => new Student()
-            {
-                Name = $"Имя {i}",
-                Surname = $"Фамилия {i}"
-            });
+        #region Coefficient : double - Коэффициент
 
-        public DirectoryViewModel DiskRootDir { get; } = new DirectoryViewModel("F:\\");
+        /// <summary>Коэффициент</summary>
+        private double _Coefficient = 1.0;
 
-        #region SelectedDirectory : DirectoryViewModel - >Выбранная директория
-
-        /// <summary>Выбранная директория</summary>
-        private DirectoryViewModel _SelectedDirectory;
-
-        /// <summary>Выбранная директория</summary>
-        public DirectoryViewModel SelectedDirectory
+        /// <summary>Коэффициент</summary>
+        public double Coefficient
         {
-            get => _SelectedDirectory;
-            set => Set(ref _SelectedDirectory, value);
+            get => _Coefficient;
+            set => Set(ref _Coefficient, value);
         }
 
-        #endregion SelectedDirectory : DirectoryViewModel - >Выбранная директория
+        #endregion Coefficient : double - Коэффициент
+
+        #region _FuelCount : double - Количество непонятно чего
+
+        /// <summary>Количество непонятно чего</summary>
+        private double _FuelCount;
+
+        /// <summary>Количество непонятно чего</summary>
+        public double FuelCount { get => _FuelCount; set => Set(ref _FuelCount, value); }
+
+        #endregion _FuelCount : double - Количество непонятно чего
+
+        public IEnumerable<Student> TestStudents =>
+            Enumerable.Range(1, App.IsDesignMode ? 10 : 100000)
+                .Select(i => new Student
+                {
+                    Name = $"Имя {i}",
+                    Surname = $"Фамилия {i}"
+                });
     }
 }
