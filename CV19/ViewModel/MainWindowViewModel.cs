@@ -233,6 +233,20 @@ namespace CV19.ViewModel
 
         #endregion SelectedGroupStudents
 
+        #region Coefficient : double - Коэффициент
+
+        /// <summary>Коэффициент</summary>
+        private double _Coefficient = 1.0;
+
+        /// <summary>Коэффициент</summary>
+        public double Coefficient
+        {
+            get => _Coefficient;
+            set => Set(ref _Coefficient, value);
+        }
+
+        #endregion Coefficient : double - Коэффициент
+
         #region _FuelCount : double - Количество непонятно чего
 
         /// <summary>Количество непонятно чего</summary>
