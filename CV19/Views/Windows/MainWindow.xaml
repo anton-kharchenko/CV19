@@ -7,6 +7,7 @@
         xmlns:cmd="clr-namespace:CV19.Infrastructure.Commands"
         xmlns:view="clr-namespace:CV19.Views"
         xmlns:components="clr-namespace:CV19.Components"
+        xmlns:converters="clr-namespace:CV19.Infrastructure.Converters"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
         Title="{Binding Title}"
@@ -57,14 +58,26 @@
                 <!-- <TextBox Text="{x:Static system:Environment.CurrentDirectory}" /> -->
                 <Grid>
                     <components:GaugeIndicator Width="80" Height="80"
-                        VerticalAlignment="Top" HorizontalAlignment="Left"
-                        Value="{Binding FuelCount}" />
-                    <Slider HorizontalAlignment="Stretch"
-                            VerticalAlignment="Top"
+                        VerticalAlignment="Top" HorizontalAlignment="Left">
+                        <components:GaugeIndicator.Value>
+                            <Binding Path="FuelCount">
+                                <Binding.Converter>
+                                    <converters:ParametricMultipleValueConverter
+                                        Value="{Binding Coefficient}" />
+                                </Binding.Converter>
+                            </Binding>
+                        </components:GaugeIndicator.Value>
+                    </components:GaugeIndicator>
+                    <Slider HorizontalAlignment="Stretch" VerticalAlignment="Top"
                             Minimum="0" Maximum="100"
-                            Height="30"
-                            Value="{Binding FuelCount}"
-                            Margin="1,88,-1,0" />
+                            Height="30" Margin="90,20,-1,0"
+                            ToolTip="{Binding FuelCount}"
+                            Value="{Binding FuelCount}" />
+                    <Slider HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                            Minimum="-10" Maximum="10" SmallChange="0.1"
+                            Height="30" Margin="90,40,-1,0"
+                            ToolTip="{Binding Coefficient}"
+                            Value="{Binding Coefficient}" />
                 </Grid>
             </TabItem>
         </TabControl>

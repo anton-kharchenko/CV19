@@ -21,13 +21,8 @@ namespace CV19.Components
 
         private static object OnCoerceValue(DependencyObject d, object basevalue)
         {
-            if (basevalue != null)
-            {
-                var value = (double)basevalue;
-                return Math.Max(0, Math.Max(100, value));
-            }
-
-            return false;
+            var value = (double)basevalue;
+            return Math.Max(0, Math.Max(100, value));
         }
 
         private static bool OnValidateValue(object value)
@@ -49,9 +44,6 @@ namespace CV19.Components
 
         #endregion Value Property
 
-        public GaugeIndicator()
-        {
-            InitializeComponent();
-        }
+        public GaugeIndicator() => InitializeComponent();
     }
 }
