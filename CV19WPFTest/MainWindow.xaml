@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:CV19WPFTest"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="CV19WPFTest.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="200" Width="200">
     <Window.Resources>
     </Window.Resources>
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Right" Margin="0,0,28,46" VerticalAlignment="Bottom" Width="135" Height="59" Foreground="#DDFFA2A2" Style="{DynamicResource ButtonStyle1}">
-        </Button>
+        <Button Content="Start" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Padding="30,20" Click="StartButton_OnClick" />
+        <TextBlock Name="ResultBlock" Text="None"
+                   HorizontalAlignment="Center" VerticalAlignment="Top" />
     </Grid>
 </Window>

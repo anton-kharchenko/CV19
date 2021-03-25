@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading;
+using System.Windows;
 
 namespace CV19WPFTest
 {
@@ -10,6 +12,28 @@ namespace CV19WPFTest
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void StartButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            new Thread(ComputeValue).Start();
+        }
+
+        private void ComputeValue()
+        {
+            var resultBlockText = LongProcess(DateTime.Now);
+            if (ResultBlock.Dispatcher.CheckAccess())
+                ResultBlock.Text = resultBlockText;
+            else
+                ResultBlock.Dispatcher.BeginInvoke(new Action(() => ResultBlock.Text = resultBlockText));
+            // ResultBlock.Dispatcher.Invoke(new Action(() => ResultBlock.Text = resultBlockText));
+        }
+
+        private static string LongProcess(DateTime time)
+        {
+            Thread.Sleep(7000);
+
+            return $"Value: {time}";
         }
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -17,7 +18,7 @@ namespace CV19.ViewModel
     [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
     internal class MainWindowViewModel : Base.ViewModel
     {
-        private readonly IAsyncDataService _AsyncData;
+        public readonly IAsyncDataService AsyncData = new AsyncDataService();
 
         /* ---------------------------------------------------------------------------------------------------- */
         public CountriesStatisticViewModel CountriesStatistic { get; }
@@ -107,10 +108,15 @@ namespace CV19.ViewModel
         /// <summary>Проверка возможности выполнения - Запуска процесса</summary>
         private bool CanStartProcessCommandExecute(object o) => true;
 
-        /// <summary>Логика выполнения - Summary</summary>
+        /// <summary>Логика выполнения - Запуска процесса</summary>
         private void OnStartProcessCommandExecuted(object o)
         {
-            DataValue = _AsyncData.GetResult(DateTime.Now);
+            new Thread(ComputeValue).Start();
+        }
+
+        private void ComputeValue()
+        {
+            DataValue = AsyncData.GetResult(DateTime.Now);
         }
 
         #endregion Command StartProcessCommand -  Запуска процесса
