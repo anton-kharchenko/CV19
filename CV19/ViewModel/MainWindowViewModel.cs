@@ -9,22 +9,28 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
+using CV19.Services;
+using CV19.Services.Interfaces;
 
 namespace CV19.ViewModel
 {
     [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
     internal class MainWindowViewModel : Base.ViewModel
     {
+        private readonly IAsyncDataService _AsyncData;
+
+        /* ---------------------------------------------------------------------------------------------------- */
         public CountriesStatisticViewModel CountriesStatistic { get; }
 
         public MainWindowViewModel(CountriesStatisticViewModel countriesStatistic)
         {
             #region Команды
 
-            CloseAppApplicationCommand = new LambdaCommand(OnCloseAppApplicationCommandExecuted,
-                CanCloseAppApplicationCommandExecute);
-
+            CloseAppApplicationCommand = new LambdaCommand(OnCloseAppApplicationCommandExecuted, CanCloseAppApplicationCommandExecute);
             ChangeTabItem = new LambdaCommand(OnChangeTabItemExecuted, CanChangeTabItemExecuted);
+
+            StartProcessCommand = new LambdaCommand(OnStartProcessCommandExecuted, CanStartProcessCommandExecute);
+            FinishProcessCommand = new LambdaCommand(OnFinishProcessCommandExecuted, CanFinishProcessCommandExecute);
 
             #endregion Команды
 
@@ -55,17 +61,7 @@ namespace CV19.ViewModel
             });
         }
 
-        #region IEnumerable<DataPoint> - Тестовый набор данных для визуализации интерфейса
-
-        private IEnumerable<DataPoint> _TestPoints;
-
-        public IEnumerable<DataPoint> TestPoints
-        {
-            get => _TestPoints;
-            set => Set(ref _TestPoints, value);
-        }
-
-        #endregion IEnumerable<DataPoint> - Тестовый набор данных для визуализации интерфейса
+        /*----------------------------------------------------------------------------------------------------------------------------------------*/
 
         #region Команды
 
@@ -103,14 +99,42 @@ namespace CV19.ViewModel
 
         #endregion Переключатель вкладок
 
-        public ICommand CreateGroupCommand { get; }
+        #region Command StartProcessCommand -  Запуска процесса
 
-        public bool CanCreateGroupCommandExecute(object p)
+        /// <summary>Запуска процесса</summary>
+        public ICommand StartProcessCommand { get; }
+
+        /// <summary>Проверка возможности выполнения - Запуска процесса</summary>
+        private bool CanStartProcessCommandExecute(object o) => true;
+
+        /// <summary>Логика выполнения - Summary</summary>
+        private void OnStartProcessCommandExecuted(object o)
         {
-            return true;
+            DataValue = _AsyncData.GetResult(DateTime.Now);
         }
 
+        #endregion Command StartProcessCommand -  Запуска процесса
+
+        #region Command FinishProcessCommand - Остановка процесса
+
+        /// <summary>Остановка процесса</summary>
+        public ICommand FinishProcessCommand { get; }
+
+        /// <summary>Проверка возможности выполнения - Остановка процесса</summary>
+        private bool CanFinishProcessCommandExecute(object o) => true;
+
+        /// <summary>Логика выполнения - Остановка процесса</summary>
+        private void OnFinishProcessCommandExecuted(object o)
+        {
+        }
+
+        #endregion Command FinishProcessCommand - Остановка процесса
+
         #endregion Команды
+
+        /*----------------------------------------------------------------------------------------------------------------------------------------*/
+
+        #region Свойства
 
         #region Title : string - Заголовок окна
 
@@ -257,12 +281,30 @@ namespace CV19.ViewModel
 
         #endregion _FuelCount : double - Количество непонятно чего
 
-        public IEnumerable<Student> TestStudents =>
-            Enumerable.Range(1, App.IsDesignMode ? 10 : 100000)
-                .Select(i => new Student
-                {
-                    Name = $"Имя {i}",
-                    Surname = $"Фамилия {i}"
-                });
+        #region IEnumerable<DataPoint> - Тестовый набор данных для визуализации интерфейса
+
+        private IEnumerable<DataPoint> _TestPoints;
+
+        public IEnumerable<DataPoint> TestPoints
+        {
+            get => _TestPoints;
+            set => Set(ref _TestPoints, value);
+        }
+
+        #endregion IEnumerable<DataPoint> - Тестовый набор данных для визуализации интерфейса
+
+        #region DataValue : string - Результат длительной асинхронной операции
+
+        /// <summary>Результат длительной асинхронной операции</summary>
+        private string _DataValue;
+
+        /// <summary>Результат длительной асинхронной операции</summary>
+        public string DataValue { get => _DataValue; private set => Set(ref _DataValue, value); }
+
+        #endregion DataValue : string - Результат длительной асинхронной операции
+
+        #endregion Свойства
+
+        /*----------------------------------------------------------------------------------------------------------------------------------------*/
     }
 }

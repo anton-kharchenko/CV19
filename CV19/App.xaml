@@ -10,7 +10,7 @@
                 <ResourceDictionary Source="Resources/Styles/Buttons.xaml" />
                 <ResourceDictionary Source="Resources/Styles/GridSpliters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <viewModel:ViewModelLocator x:Key="Locator"/>
+            <viewModel:ViewModelLocator x:Key="Locator" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
