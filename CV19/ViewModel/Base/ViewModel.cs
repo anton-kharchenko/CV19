@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
+using System.Windows.Threading;
 using System.Xaml;
 
 namespace CV19.ViewModel.Base
@@ -15,7 +16,23 @@ namespace CV19.ViewModel.Base
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            // PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            var handlers = PropertyChanged;
+            if (handlers is null) return;
+
+            var invocationList = handlers.GetInvocationList();
+
+            var arg = new PropertyChangedEventArgs(propertyName);
+
+            foreach (var @delegate in invocationList)
+            {
+                if (@delegate.Target is DispatcherObject dispatcherObject)
+                {
+                    dispatcherObject.Dispatcher.Invoke(@delegate, this, arg);
+                }
+                else
+                    @delegate.DynamicInvoke(this, arg);
+            }
         }
 
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
