@@ -5,9 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace CV19.WebServer
 {
-    internal class WebServer
+    public class WebServer
     {
-        private event EventHandler<RequestReceivedEventArgs> RequestRecieved;
+        public event EventHandler<RequestReceivedEventArgs> RequestRecieved;
 
         //private TcpListener Listener = new TcpListener(IPAddress.Any, 8080);
 
@@ -32,7 +32,7 @@ namespace CV19.WebServer
             {
                 if (Enabled) return;
                 Listener = new HttpListener();
-                Listener.Prefixes.Add($"http://*:{Port}");
+                Listener.Prefixes.Add($"http://+:{Port}");
                 Enabled = true;
                 ListenAsync();
             }
@@ -69,7 +69,7 @@ namespace CV19.WebServer
         }
     }
 
-    internal class RequestReceivedEventArgs : EventArgs
+    public class RequestReceivedEventArgs : EventArgs
     {
         public HttpListenerContext Context { get; set; }
 
