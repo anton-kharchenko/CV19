@@ -1,34 +1,83 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Globalization;
 using System.Threading;
 
 namespace CV19Console
 {
     internal class Program
     {
+        private static bool _ThreadUpdate = true;
+
         private static void Main(string[] args)
         {
             Thread.CurrentThread.Name = "Main thread";
 
-            var thread = new Thread(ThreadMethod)
+            var clockThread = new Thread(ThreadMethod)
             {
                 Name = "Other thread",
                 IsBackground = true,
                 Priority = ThreadPriority.AboveNormal
             };
 
-            thread.Start();
+            clockThread.Start();
+            //
+            // var mess = "Hello world";
+            // var sleep = 1000;
+            // var count = 3;
+            //
+            // new Thread(() => PrintMethod(mess, 3, sleep)) { IsBackground = true }.Start();
+            // CurrentThread();
 
-            var mess = "Hello world";
-            var sleep = 1000;
-            var count = 3;
+            var list = new List<int>();
 
-            new Thread(() => PrintMethod(mess, 3, sleep)) { IsBackground = true }.Start();
+            var threads = new Thread[10];
+            object lockObject = new object();
 
-            CurrentThread();
+            for (var i = 0; i < threads.Length; i++)
+            {
+                threads[i] = new Thread(() =>
+                {
+                    for (var j = 0; j < 10; j++)
+                        lock (lockObject)
+                        {
+                            list.Add(Thread.CurrentThread.ManagedThreadId);
+                        }
+                });
+            }
+
+            foreach (var t in threads)
+                t.Start();
+
+            Monitor.Enter(lockObject);
+            try
+            {
+            }
+            finally
+            {
+                Monitor.Exit(lockObject);
+            }
+
+            if (!(clockThread.Join(1000)))
+            {
+               // clockThread.Abort();
+                clockThread.Interrupt();
+            }
+
+            Console.WriteLine(string.Join(",", list));
             Console.ReadLine();
         }
 
-        private static void ThreadMethod() => CurrentThread();
+        private static void ThreadMethod(object param)
+        {
+            CurrentThread();
+            while (_ThreadUpdate)
+            {
+                Thread.Sleep(1000);
+                Console.Title = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+            }
+        }
 
         private static void PrintMethod(string message, int count, int timeout)
         {
