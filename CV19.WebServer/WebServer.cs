@@ -7,17 +7,14 @@ namespace CV19.WebServer
 {
     public class WebServer
     {
-        public event EventHandler<RequestReceivedEventArgs> RequestRecieved;
+        public event EventHandler<RequestReceiverEventArgs> RequestReceived;
 
-        //private TcpListener Listener = new TcpListener(IPAddress.Any, 8080);
-
-        private HttpListener Listener;
+        //private TcpListener _Listener = new TcpListener(new IPEndPoint(IPAddress.Any, 8080));
+        private HttpListener _Listener;
 
         private readonly int _Port;
-
         private bool _Enabled;
-
-        public object _SyncRoot = new object();
+        private readonly object _SyncRoot = new object();
 
         public int Port => _Port;
 
@@ -27,52 +24,59 @@ namespace CV19.WebServer
 
         public void Start()
         {
-            if (Enabled) return;
+            if (_Enabled) return;
             lock (_SyncRoot)
             {
-                if (Enabled) return;
-                Listener = new HttpListener();
-                Listener.Prefixes.Add($"http://+:{Port}");
-                Enabled = true;
+                if (_Enabled) return;
+
+                _Listener = new HttpListener();
+                //_Listener.Prefixes.Add($"http://*:{_Port}/"); // netsh http add urlacl url=http://*:8080/ user=user_name
+                _Listener.Prefixes.Add($"http://+:{_Port}/");
+                _Enabled = true;
                 ListenAsync();
             }
         }
 
         public void Stop()
         {
-            if (Enabled) return;
+            if (!_Enabled) return;
             lock (_SyncRoot)
             {
-                if (Enabled) return;
-                Listener = null;
-                Enabled = false;
+                if (!_Enabled) return;
+
+                _Listener = null;
+                _Enabled = false;
             }
         }
 
-        public async void ListenAsync()
+        private async void ListenAsync()
         {
-            var listner = Listener;
-            listner.Start();
+            var listener = _Listener;
 
+            listener.Start();
+
+            HttpListenerContext context = null;
             while (_Enabled)
             {
-                var context = await listner.GetContextAsync().ConfigureAwait(false);
-                ProcessRequest(context);
+                var getContextTask = listener.GetContextAsync();
+                if (context != null)
+                    ProcessRequestAsync(context);
+                context = await getContextTask.ConfigureAwait(false);
             }
 
-            listner.Stop();
+            listener.Stop();
         }
 
-        private void ProcessRequest(HttpListenerContext context)
+        private void ProcessRequestAsync(HttpListenerContext context)
         {
-            RequestRecieved?.Invoke(this, new RequestReceivedEventArgs(context));
+            RequestReceived?.Invoke(this, new RequestReceiverEventArgs(context));
         }
     }
 
-    public class RequestReceivedEventArgs : EventArgs
+    public class RequestReceiverEventArgs : EventArgs
     {
-        public HttpListenerContext Context { get; set; }
+        public HttpListenerContext Context { get; }
 
-        public RequestReceivedEventArgs(HttpListenerContext context) => Context = context;
+        public RequestReceiverEventArgs(HttpListenerContext context) => Context = context;
     }
 }

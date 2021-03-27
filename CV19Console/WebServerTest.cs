@@ -9,20 +9,21 @@ namespace CV19Console
         public static void Start()
         {
             var server = new WebServer(8080);
-            server.RequestRecieved += OnRequestReceived;
+            server.RequestReceived += OnRequestReceived;
             server.Start();
 
             Console.WriteLine("Server is running!");
             Console.ReadLine();
         }
 
-        private static void OnRequestReceived(object sender, RequestReceivedEventArgs e)
+        private static void OnRequestReceived(object? Sender, RequestReceiverEventArgs E)
         {
-            var context = e.Context;
+            var context = E.Context;
+
             Console.WriteLine("Connection {0}", context.Request.UserHostAddress);
 
             using var writer = new StreamWriter(context.Response.OutputStream);
-            writer.WriteLine("Hello from Test Web Server!");
+            writer.WriteLine("Hello from Test Web Server!!!");
         }
     }
 }
