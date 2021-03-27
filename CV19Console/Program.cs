@@ -61,7 +61,7 @@ namespace CV19Console
 
             if (!(clockThread.Join(1000)))
             {
-               // clockThread.Abort();
+                // clockThread.Abort();
                 clockThread.Interrupt();
             }
 
