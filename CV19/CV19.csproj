@@ -317,8 +317,10 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\AsyncDataServes.cs" />
     <Compile Include="Services\DataSercive.cs" />
+    <Compile Include="Services\HttpListenerWebServer.cs" />
     <Compile Include="Services\Interfaces\IAsyncDataService.cs" />
     <Compile Include="Services\Interfaces\IDataService.cs" />
+    <Compile Include="Services\Interfaces\IWebServerService.cs" />
     <Compile Include="Services\Registrator.cs" />
     <Compile Include="ViewModel\Base\ViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

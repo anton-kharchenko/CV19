@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Windows.Input;
 using CV19.Infrastructure.Commands;
+using CV19.Services.Interfaces;
 
 namespace CV19.Views
 {
     internal class WebServerViewModel : ViewModel.Base.ViewModel
     {
+        public IWebServerService Server { get; }
+
+        public WebServerViewModel(IWebServerService server)
+        {
+            Server = server;
+        }
+
         #region Enabled : bool - Флаг работы сервера
 
         /// <summary>DESCRIPTION</summary>
