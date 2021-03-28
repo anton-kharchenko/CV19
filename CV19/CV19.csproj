@@ -328,6 +328,7 @@
       <DependentUpon>CountriesStatisticView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\CountriesStatisticViewModel.cs" />
+    <Compile Include="ViewModel\WebServerViewModel.cs" />
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

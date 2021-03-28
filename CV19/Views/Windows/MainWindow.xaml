@@ -31,15 +31,15 @@
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе" />
             </MenuItem>
-            <MenuItem Command="{Binding ChangeTabItem}" CommandParameter="-1">
-                <MenuItem.Header>
-                    <fa:ImageAwesome Icon="Regular_ArrowAltCircleRight" Height="12" />
-                </MenuItem.Header>
-            </MenuItem>
-            <MenuItem Command="{Binding ChangeTabItem}" CommandParameter="1">
-                <MenuItem.Header>
-                    <fa:ImageAwesome Icon="Regular_ArrowAltCircleLeft" Height="12" />
-                </MenuItem.Header>
+            <MenuItem Header="Сервис">
+                <MenuItem Header="Web-server" DataContext="{Binding WebServer}">
+                    <MenuItem Header="Включён"
+                              IsCheckable="True"
+                              IsChecked="{Binding Enabled}" />
+                    <Separator />
+                    <MenuItem  Header="Включить" Command="{Binding StartCommand}" />
+                    <MenuItem  Header="Выключить" Command="{Binding StopCommand}" />
+                </MenuItem>
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CV19.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CV19.ViewModel
 {
@@ -8,6 +9,7 @@ namespace CV19.ViewModel
         {
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<CountriesStatisticViewModel>();
+            services.AddSingleton<WebServerViewModel>();
 
             return services;
         }
