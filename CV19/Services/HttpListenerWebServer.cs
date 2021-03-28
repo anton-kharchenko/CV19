@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using CV19.Services.Interfaces;
 using CV19.WebServerProject;
 
@@ -13,7 +14,7 @@ namespace CV19.Services
         private static void OnRequestReceived(object sender, RequestReceiverEventArgs e)
         {
             using var writer = new StreamWriter(e.Context.Response.OutputStream);
-            writer.WriteLine("CV19 Application");
+            writer.WriteLine("CV19 Application - {0}", DateTime.Now);
         }
 
         public bool Enabled
