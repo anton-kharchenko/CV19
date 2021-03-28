@@ -17,13 +17,14 @@ namespace CV19.Views
         #region Enabled : bool - Флаг работы сервера
 
         /// <summary>DESCRIPTION</summary>
-        private bool _Enabled;
-
-        /// <summary>DESCRIPTION</summary>
         public bool Enabled
         {
-            get => _Enabled;
-            set => Set(ref _Enabled, value);
+            get => Server.Enabled;
+            set
+            {
+                Server.Enabled = value;
+                OnPropertyChanged();
+            }
         }
 
         #endregion Enabled : bool - Флаг работы сервера
@@ -38,10 +39,14 @@ namespace CV19.Views
             ??= new LambdaCommand(OnStartCommandExecuted, CanStartCommandExecute);
 
         /// <summary>Проверка возможности выполнения - Запуск работы сервера</summary>
-        private bool CanStartCommandExecute(object parameter) => !_Enabled;
+        private bool CanStartCommandExecute(object parameter) => !Enabled;
 
         /// <summary>Логика выполнения - Запуск работы сервера</summary>
-        private void OnStartCommandExecuted(object parameter) => Enabled = true;
+        private void OnStartCommandExecuted(object parameter)
+        {
+            Server.Start();
+            OnPropertyChanged(nameof(Enabled));
+        }
 
         #endregion Command StartCommand - Запуск работы сервера
 
@@ -55,10 +60,14 @@ namespace CV19.Views
             ??= new LambdaCommand(OnStopCommandExecuted, CanStopCommandExecute);
 
         /// <summary>Проверка возможности выполнения - ЗОстановка сервера</summary>
-        private bool CanStopCommandExecute(object parameter) => _Enabled;
+        private bool CanStopCommandExecute(object parameter) => Enabled;
 
         /// <summary>Логика выполнения - Запуск работы сервера</summary>
-        private void OnStopCommandExecuted(object parameter) => Enabled = false;
+        private void OnStopCommandExecuted(object parameter)
+        {
+            Server.Stop();
+            OnPropertyChanged(nameof(Enabled));
+        }
 
         #endregion Command StopCommand - Остановка сервера
     }
