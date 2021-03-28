@@ -9,10 +9,7 @@ namespace CV19.Views
     {
         public IWebServerService Server { get; }
 
-        public WebServerViewModel(IWebServerService server)
-        {
-            Server = server;
-        }
+        public WebServerViewModel(IWebServerService server) => Server = server;
 
         #region Enabled : bool - Флаг работы сервера
 

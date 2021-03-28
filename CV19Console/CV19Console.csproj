@@ -57,9 +57,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CV19.WebServer\CV19.WebServer.csproj">
+    <ProjectReference Include="..\CV19.WebServer\CV19.WebServerProject.csproj">
       <Project>{407bec27-bc23-4ca5-81a5-b79063307ed9}</Project>
-      <Name>CV19.WebServer</Name>
+      <Name>CV19.WebServerProject</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

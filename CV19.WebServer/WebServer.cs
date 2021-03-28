@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Net;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
 
-namespace CV19.WebServer
+namespace CV19.WebServerProject
 {
     public class WebServer
     {

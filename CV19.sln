@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CV19WPFTest", "CV19WPFTest\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{D04B8F5F-36B4-4FB7-BCE3-4210959DC0E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CV19.WebServer", "CV19.WebServer\CV19.WebServer.csproj", "{407BEC27-BC23-4CA5-81A5-B79063307ED9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CV19.WebServerProject", "CV19.WebServer\CV19.WebServerProject.csproj", "{407BEC27-BC23-4CA5-81A5-B79063307ED9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
