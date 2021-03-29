@@ -7,7 +7,7 @@
     xmlns:l="clr-namespace:CV19WPFTest.Behaviors"
     x:Class="CV19WPFTest.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="200" Width="200">
+        Title="MainWindow" Height="500" Width="500">
     <Window.Resources>
     </Window.Resources>
     <Grid>
@@ -26,9 +26,16 @@
                      Fill="Blue">
                 <i:Interaction.Behaviors>
                     <!-- <i:MouseDragElementBehavior /> -->
-                    <l:DragInCanvas/>
+                    <l:DragInCanvas x:Name="EllipseDragBehavior" />
                 </i:Interaction.Behaviors>
             </Ellipse>
+            <Button Height="25" Width="67" Canvas.Left="103" Canvas.Top="26" Content="Закрыть">
+                <i:Interaction.Behaviors>
+                    <l:CloseWindow />
+                </i:Interaction.Behaviors>
+            </Button>
+            <TextBlock Canvas.Top="40" Canvas.Left="10" Text="{Binding PositionX, ElementName=EllipseDragBehavior}"></TextBlock>
+            <TextBlock Canvas.Top="60" Canvas.Left="10" Text="{Binding PositionY, ElementName=EllipseDragBehavior}"></TextBlock>
         </Canvas>
     </Grid>
 </Window>
