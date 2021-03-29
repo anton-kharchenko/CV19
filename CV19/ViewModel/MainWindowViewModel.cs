@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using CV19.Services;
 using CV19.Services.Interfaces;
+using CV19.Views;
 
 namespace CV19.ViewModel
 {
@@ -22,8 +23,9 @@ namespace CV19.ViewModel
 
         /* ---------------------------------------------------------------------------------------------------- */
         public CountriesStatisticViewModel CountriesStatistic { get; }
+        public WebServerViewModel WebServer { get; }
 
-        public MainWindowViewModel(CountriesStatisticViewModel countriesStatistic)
+        public MainWindowViewModel(CountriesStatisticViewModel countriesStatistic, WebServerViewModel webServer)
         {
             #region Команды
 
@@ -36,6 +38,7 @@ namespace CV19.ViewModel
             #endregion Команды
 
             CountriesStatistic = countriesStatistic;
+            WebServer = webServer;
             countriesStatistic.MainModel = this;
 
             var data_points = new List<DataPoint>((int)(360 / 0.1));
