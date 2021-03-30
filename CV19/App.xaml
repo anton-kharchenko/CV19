@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="Resources/Base/Brushes.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Buttons.xaml" />
                 <ResourceDictionary Source="Resources/Styles/GridSpliters.xaml" />
+                <ResourceDictionary Source="Resources/Styles/WindowStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <viewModel:ViewModelLocator x:Key="Locator" />
         </ResourceDictionary>
