@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using CV19.WebServer;
+using CV19.WebServerProject;
 
 namespace CV19Console
 {
